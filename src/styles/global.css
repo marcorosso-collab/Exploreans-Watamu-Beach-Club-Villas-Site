@@ -95,6 +95,8 @@ section { padding: clamp(5rem, 10vw, 9rem) 0; position: relative; }
 .nav.scrolled .btn { color: var(--forest); }
 .btn:hover { background: var(--forest); border-color: var(--forest); color: var(--paper); }
 .btn-solid { background: var(--forest); color: var(--paper); border-color: var(--forest); }
+/* Keep Book Now button text white even when scrolled */
+.nav.scrolled .btn-solid { color: var(--paper) !important; }
 .btn-solid:hover { background: var(--moss); border-color: var(--moss); color: var(--paper); }
 .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
 .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--paper); transition: all 0.3s ease; }
@@ -308,17 +310,18 @@ footer a:hover { color: var(--paper); }
   }
   /* Keep CTA visible next to hamburger */
   .nav-cta {
-    padding: 0.85rem 1.6rem;
-    font-size: 0.75rem;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.68rem;
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    color: var(--paper) !important;
   }
-  /* Shrink logo slightly on mobile to fit all three elements */
+  /* Shrink logo on mobile to fit all three elements */
   .nav-logo-img {
-    height: 55px;
-    max-width: 170px;
+    height: 48px;
+    max-width: 150px;
   }
   .section-header { grid-template-columns: 1fr; }
   .letter-grid { grid-template-columns: 1fr; }
