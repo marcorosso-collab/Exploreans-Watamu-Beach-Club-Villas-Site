@@ -20,12 +20,13 @@ if (d.type !== 'family') throw new Error('Expected family section');
 
     <div class="family-brands">
       {d.brands.map(b => (
-        <div class="brand-card">
-          <div class="brand-card-name">{b.name}</div>
-          <div class="brand-card-tag">{b.tagline}</div>
+        <a href={b.url} target="_blank" rel="noopener" class="brand-card">
+          <div class="brand-card-logo">
+            <img src={b.logo} alt={`${b.name} Logo`} />
+          </div>
           <p>{b.description}</p>
-          <a href={b.url} target="_blank" rel="noopener">Visit {b.name} →</a>
-        </div>
+          <span class="brand-card-link">Visit {b.name} →</span>
+        </a>
       ))}
     </div>
   </div>

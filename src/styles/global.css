@@ -244,12 +244,12 @@ section { padding: clamp(5rem, 10vw, 9rem) 0; position: relative; }
 .pillars span::after { content: '·'; color: var(--sage); }
 .pillars span:last-child::after { display: none; }
 .family-brands { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
-.brand-card { padding: 2.5rem 2rem; background: var(--paper); border: 1px solid var(--rule); text-align: left; transition: transform .35s ease, border-color .3s ease; }
+.brand-card { padding: 2.5rem 2rem; background: var(--paper); border: 1px solid var(--rule); text-align: left; transition: transform .35s ease, border-color .3s ease; display: block; text-decoration: none; color: inherit; }
 .brand-card:hover { transform: translateY(-4px); border-color: var(--sage); }
-.brand-card-name { font-family: var(--serif-display); font-size: 1.5rem; color: var(--moss); margin-bottom: 0.3rem; }
-.brand-card-tag { font-family: var(--serif-display); font-style: italic; color: var(--forest); margin-bottom: 1rem; font-size: 1rem; }
+.brand-card-logo { margin-bottom: 1.25rem; height: 60px; display: flex; align-items: center; }
+.brand-card-logo img { max-height: 100%; max-width: 180px; width: auto; object-fit: contain; }
 .brand-card p { color: var(--shadow); font-size: 0.95rem; line-height: 1.55; margin-bottom: 1.25rem; }
-.brand-card a { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; }
+.brand-card-link { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--forest); }
 
 /* ============ Footer ============ */
 footer { background: var(--moss); color: rgba(250, 250, 245, 0.75); padding: 5rem 0 2rem; }
