@@ -13,6 +13,24 @@
     "lat": -3.2637,
     "lng": 40.0192
   },
+  "nav": {
+    "logoText": "EXPLOREANS",
+    "logoSubtext": "Watamu · Beach Club & Villas",
+    "logoImage": "",
+    "logoAlt": "Exploreans Watamu Beach Club & Villas logo",
+    "ctaLabel": "Reserve",
+    "ctaUrl": "https://www.simplebooking.it/ibe2/hotel/10256?lang=EN&cur=USD",
+    "ctaTarget": "_blank",
+    "links": [
+      { "label": "The Place", "href": "#letter", "title": "Discover the property" },
+      { "label": "Villas", "href": "#villas", "title": "View our villas" },
+      { "label": "Facilities", "href": "#facilities", "title": "Explore facilities" },
+      { "label": "Dining", "href": "#dining", "title": "Restaurants & dining" },
+      { "label": "Beach Club", "href": "#beach", "title": "Private beach club" },
+      { "label": "Excursions", "href": "#excursions", "title": "Coastal excursions" },
+      { "label": "Journal", "href": "#notes", "title": "Field notes & stories" }
+    ]
+  },
   "booking": {
     "url": "https://www.simplebooking.it/ibe2/hotel/10256?lang=EN&cur=USD"
   },

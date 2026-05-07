@@ -61,6 +61,24 @@ collections:
               - { name: addressCountry, label: "Country code (e.g. KE)", widget: string }
               - { name: lat, label: "Latitude", widget: number, value_type: float, step: 0.0001 }
               - { name: lng, label: "Longitude", widget: number, value_type: float, step: 0.0001 }
+          - name: nav
+            label: "Navigation"
+            widget: object
+            fields:
+              - { name: logoText, label: "Logo text", widget: string, default: "EXPLOREANS" }
+              - { name: logoSubtext, label: "Logo subtext", widget: string, default: "Watamu · Beach Club & Villas" }
+              - { name: logoImage, label: "Logo image (optional, replaces text)", widget: image, required: false }
+              - { name: logoAlt, label: "Logo alt text (for accessibility)", widget: string, default: "Exploreans Watamu Beach Club & Villas logo" }
+              - { name: ctaLabel, label: "CTA button label", widget: string, default: "Reserve" }
+              - { name: ctaUrl, label: "CTA button URL", widget: string }
+              - { name: ctaTarget, label: "CTA link target", widget: select, options: ["_blank", "_self"], default: "_blank" }
+              - name: links
+                label: "Navigation links"
+                widget: list
+                fields:
+                  - { name: label, label: "Link label", widget: string }
+                  - { name: href, label: "Link URL", widget: string }
+                  - { name: title, label: "Link title (SEO tooltip)", widget: string }
           - name: booking
             label: "Booking"
             widget: object

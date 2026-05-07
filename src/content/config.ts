@@ -20,6 +20,20 @@ const site = defineCollection({
       lat: z.number(),
       lng: z.number()
     }),
+    nav: z.object({
+      logoText: z.string(),
+      logoSubtext: z.string(),
+      logoImage: z.string().optional(),
+      logoAlt: z.string(),
+      ctaLabel: z.string(),
+      ctaUrl: z.string(),
+      ctaTarget: z.string().default('_blank'),
+      links: z.array(z.object({
+        label: z.string(),
+        href: z.string(),
+        title: z.string()
+      }))
+    }),
     booking: z.object({
       url: z.string()
     }),

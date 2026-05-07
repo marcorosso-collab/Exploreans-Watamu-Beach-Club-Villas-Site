@@ -2,24 +2,29 @@
 import { getEntry } from 'astro:content';
 const settings = await getEntry('site', 'settings');
 const s = settings.data;
+const nav = s.nav;
 ---
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Main navigation">
   <div class="container nav-inner">
-    <a href="#" class="nav-brand">
-      EXPLOREANS
-      <small>Watamu · Beach Club &amp; Villas</small>
+    <a href="/" class="nav-brand" title={nav.logoAlt}>
+      {nav.logoImage ? (
+        <img src={nav.logoImage} alt={nav.logoAlt} class="nav-logo-img" />
+      ) : (
+        <>
+          {nav.logoText}
+          <small>{nav.logoSubtext}</small>
+        </>
+      )}
     </a>
-    <ul class="nav-links">
-      <li><a href="#letter">The Place</a></li>
-      <li><a href="#villas">Villas</a></li>
-      <li><a href="#facilities">Facilities</a></li>
-      <li><a href="#dining">Dining</a></li>
-      <li><a href="#beach">Beach Club</a></li>
-      <li><a href="#excursions">Excursions</a></li>
-      <li><a href="#notes">Journal</a></li>
+    <ul class="nav-links" role="menubar">
+      {nav.links.map(link => (
+        <li role="none">
+          <a href={link.href} title={link.title} role="menuitem">{link.label}</a>
+        </li>
+      ))}
     </ul>
-    <a href={s.booking.url} class="btn btn-solid nav-cta" target="_blank" rel="noopener">Reserve</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <a href={nav.ctaUrl} class="btn btn-solid nav-cta" target={nav.ctaTarget} rel="noopener" title="Book your stay">{nav.ctaLabel}</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">
       <span></span><span></span><span></span>
     </button>
   </div>
