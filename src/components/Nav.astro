@@ -19,16 +19,20 @@ const nav = s.nav;
         </>
       )}
     </a>
-    <ul class="nav-links" role="menubar">
+
+    <ul class="nav-links" id="navLinks" role="menubar">
       {nav.links.map(link => (
         <li role="none">
           <a href={link.href} title={link.title} role="menuitem">{link.label}</a>
         </li>
       ))}
     </ul>
-    <a href={nav.ctaUrl} class="btn btn-solid nav-cta" target={nav.ctaTarget} rel="noopener" title="Book your stay">{nav.ctaLabel}</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">
-      <span></span><span></span><span></span>
-    </button>
+
+    <div class="nav-actions">
+      <a href={nav.ctaUrl} class="btn btn-solid nav-cta" target={nav.ctaTarget} rel="noopener" title="Book your stay">{nav.ctaLabel}</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
