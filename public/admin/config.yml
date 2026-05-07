@@ -14,14 +14,14 @@ backend:
   name: github
   repo: marcorosso-collab/Exploreans-Watamu-Beach-Club-Villas-Site
   branch: main
-  base_url: https://watamu.exploreans.com
+  base_url: https://exploreanswatamu.netlify.app
 
 # Where Sveltia uploads media (referenced from Astro as /images/...)
 media_folder: "public/images"
 public_folder: "/images"
 
-site_url: https://watamu.exploreans.com
-display_url: https://watamu.exploreans.com
+site_url: https://exploreanswatamu.netlify.app
+display_url: https://exploreanswatamu.netlify.app
 logo_url: https://exploreans.com/images/secluded-beach-club-experience-exploreans-malaika-kenya.jpg
 
 # Editorial workflow gives a draft → review → publish cycle (Sveltia + Netlify).
