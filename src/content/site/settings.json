@@ -1,0 +1,25 @@
+{
+  "siteName": "Exploreans Watamu Beach Club & Villas",
+  "tagline": "Preserved, not produced.",
+  "url": "https://watamu.exploreans.com",
+  "contact": {
+    "phone": "+254 796035766",
+    "phoneRestaurant": "+254 799388781",
+    "email": "info.watamu@planhotel.com",
+    "addressStreet": "Mayungu Road, after 1 km Mayungu Village",
+    "addressCity": "Watamu",
+    "addressRegion": "Kilifi County",
+    "addressCountry": "KE",
+    "lat": -3.2637,
+    "lng": 40.0192
+  },
+  "booking": {
+    "url": "https://www.simplebooking.it/ibe2/hotel/10256?lang=EN&cur=USD"
+  },
+  "seo": {
+    "title": "Exploreans Watamu Beach Club & Villas | Boutique Hotel on Kenya's Watamu Coast",
+    "description": "Exploreans Watamu Beach Club & Villas — a 17-villa boutique ecolodge with a private beach, two restaurants, swimming pool and wellness pavilion on Mayungu Bay, beside the Watamu Marine National Park, Kenya. All-inclusive available. Preserved, not produced.",
+    "keywords": "Watamu hotel, Watamu beach hotel, Watamu villas, hotel Watamu Kenya, Watamu Marine National Park accommodation, Mayungu beach, Kenya coast hotel, all-inclusive Watamu, private villa Watamu, Mida Creek, Gedi Ruins, Tsavo East safari from Watamu, Exploreans, Planhotel",
+    "ogImage": "https://exploreans.com/images/secluded-beach-club-experience-exploreans-malaika-kenya.jpg"
+  }
+}

@@ -1,0 +1,32 @@
+---
+import { getEntry } from 'astro:content';
+import RichText from './RichText.astro';
+import WavePattern from './WavePattern.astro';
+
+const entry = await getEntry('sections', 'family');
+const d = entry.data;
+if (d.type !== 'family') throw new Error('Expected family section');
+---
+<section class="family">
+  <WavePattern />
+  <div class="container">
+    <div class="eyebrow" style="margin-bottom: 1.5rem;">{d.eyebrow}</div>
+    <RichText text={d.headline} as="h2" />
+    <p>{d.lede}</p>
+
+    <div class="pillars">
+      {d.pillars.map(p => <span>{p}</span>)}
+    </div>
+
+    <div class="family-brands">
+      {d.brands.map(b => (
+        <div class="brand-card">
+          <div class="brand-card-name">{b.name}</div>
+          <div class="brand-card-tag">{b.tagline}</div>
+          <p>{b.description}</p>
+          <a href={b.url} target="_blank" rel="noopener">Visit {b.name} →</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+{
+  "type": "facilities",
+  "chapterLabel": "Chapter IV",
+  "chapterSubtitle": "What is on the property",
+  "headline": "Everything you need. *Nothing you don't*.",
+  "lede": "A central swimming pool, a private beach club a short walk away, two restaurants, a wellness pavilion under the palms, and the kind of quiet that the rest of the world has mostly forgotten. The property is small by design — and complete in what matters.",
+  "facilities": [
+    {
+      "title": "The Swimming",
+      "titleEm": "Pool",
+      "description": "A central freshwater pool surrounded by villas and shaded loungers. Open from sunrise to sunset, with a quiet end for swimming laps and a shallow side for children.",
+      "icon": "pool"
+    },
+    {
+      "title": "The Private",
+      "titleEm": "Beach Club",
+      "description": "A 150-metre walk through the gardens to a private stretch of Mayungu beach. Makuti-thatched gazebos, sunbeds, fresh-water showers, and a beachside à la carte restaurant under the palms.",
+      "icon": "beach"
+    },
+    {
+      "title": "Two",
+      "titleEm": "Restaurants",
+      "description": "One in the heart of the property, one on the beach. Italian-rooted cooking, fresh Indian Ocean fish, coastal Swahili spice, and an à la carte menu that changes when the catch does. Open to non-resident diners.",
+      "icon": "restaurant"
+    },
+    {
+      "title": "The",
+      "titleEm": "Wellness Pavilion",
+      "description": "A simple massage room, both at the property and at the beach club. Treatments and yoga on request. Quiet, unhurried, and free of celestial-themed treatments or piped-in music.",
+      "icon": "wellness"
+    },
+    {
+      "title": "Tropical",
+      "titleEm": "Gardens",
+      "description": "Indigenous palms, frangipani, bougainvillea, and the slow shade of casuarina. The grounds are designed to feel found, not landscaped — and to support the local birdlife rather than crowd it out.",
+      "icon": "gardens"
+    },
+    {
+      "title": "Concierge",
+      "titleEm": "& Excursions",
+      "description": "Full trip planning for the whole Kenyan coast — Watamu Marine Park snorkelling, Tsavo East day safaris, Mida Creek mangrove tours, Gedi Ruins visits, dhow charters. Airport transfers from Malindi included on request.",
+      "icon": "concierge"
+    }
+  ],
+  "footerStrip": "All-inclusive · Half-board · Self-catering · Free Wi-Fi throughout · Free parking · Children welcome"
+}

@@ -1,0 +1,32 @@
+---
+import { getEntry } from 'astro:content';
+import RichText from './RichText.astro';
+import WavePattern from './WavePattern.astro';
+
+const entry = await getEntry('sections', 'setting');
+const d = entry.data;
+if (d.type !== 'setting') throw new Error('Expected setting section');
+---
+<section class="setting" id="setting">
+  <WavePattern />
+  <div class="container">
+    <div class="setting-grid">
+      <div class="setting-text">
+        <div class="eyebrow" style="margin-bottom: 1.5rem;">{d.chapterLabel}</div>
+        <RichText text={d.headline} as="h2" />
+        {d.paragraphs.map(p => <p>{p}</p>)}
+        <div class="setting-stats">
+          {d.stats.map(s => (
+            <div class="setting-stat">
+              <strong>{s.value}</strong>
+              <span>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <figure class="setting-figure">
+        <img src={d.image} alt={d.imageAlt} />
+      </figure>
+    </div>
+  </div>
+</section>

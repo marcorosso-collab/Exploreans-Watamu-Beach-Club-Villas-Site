@@ -1,0 +1,13 @@
+{
+  "type": "hero",
+  "eyebrow": "A boutique hotel on the Watamu coast, Kenya",
+  "headline": "Watamu Beach Club & Villas.",
+  "headlineEm": "Beach Club",
+  "tagline": "Preserved, not produced.",
+  "image": "https://exploreans.com/images/secluded-beach-club-experience-exploreans-malaika-kenya.jpg",
+  "meta": [
+    { "label": "The Property", "value": "17 villas" },
+    { "label": "The Bay", "value": "Mayungu, Watamu" },
+    { "label": "The Coast", "value": "Marine National Park" }
+  ]
+}

@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import WavePattern from './WavePattern.astro';
+
+const all = await getCollection('excursions', ({ data }) => data.published);
+const items = all.sort((a, b) => a.data.order - b.data.order);
+---
+<section class="excursions" id="excursions">
+  <WavePattern />
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-tag">Chapter VII<span>Beyond the gate</span></div>
+      <h2>The coast, the forest, the <em>old stones</em>.</h2>
+    </div>
+    <p class="lede">Most of the best of the Watamu coast is within an easy day. Some things — Tsavo East, Marafa — are worth the longer drive. Our concierge team handles transfers, tour guides, and full excursion planning.</p>
+
+    <div class="exc-grid">
+      {items.map(({ data: e }) => (
+        <article class="exc-card">
+          <div class="exc-img">
+            <img src={e.image} alt={e.imageAlt} />
+            <div class="exc-distance">{e.distance}</div>
+          </div>
+          <div class="exc-body">
+            <div class="exc-cat">{e.category}</div>
+            <h3>{e.name} <em>{e.nameEm}</em></h3>
+            <p>{e.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <p class="exc-cta">Our team plans transfers, guides and full itineraries. Tell us what you'd like to see.</p>
+  </div>
+</section>

@@ -1,0 +1,302 @@
+# ============================================================
+# Sveltia CMS configuration for Exploreans Watamu
+#
+# Backend defaults to git-gateway (Netlify Identity). To switch
+# to direct GitHub OAuth, replace the backend block with:
+#
+#   backend:
+#     name: github
+#     repo: your-org/exploreans-watamu
+#     branch: main
+# ============================================================
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Where Sveltia uploads media (referenced from Astro as /images/...)
+media_folder: "public/images"
+public_folder: "/images"
+
+site_url: https://watamu.exploreans.com
+display_url: https://watamu.exploreans.com
+logo_url: https://exploreans.com/images/secluded-beach-club-experience-exploreans-malaika-kenya.jpg
+
+# Editorial workflow gives a draft → review → publish cycle (Sveltia + Netlify).
+# Comment out the next line for direct-publish (commits straight to main).
+publish_mode: editorial_workflow
+
+collections:
+
+  # ----------------------------------------------------------
+  # 1. SITE-WIDE SETTINGS (single file)
+  # ----------------------------------------------------------
+  - name: "site"
+    label: "Site Settings"
+    description: "Contact details, booking link, SEO meta — used everywhere on the site."
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "settings"
+        label: "Site Settings"
+        file: "src/content/site/settings.json"
+        format: "json"
+        fields:
+          - { name: siteName, label: "Site name", widget: string }
+          - { name: tagline, label: "Tagline (used in footer + meta)", widget: string }
+          - { name: url, label: "Canonical URL", widget: string }
+          - name: contact
+            label: "Contact"
+            widget: object
+            fields:
+              - { name: phone, label: "General phone", widget: string }
+              - { name: phoneRestaurant, label: "Restaurant reservations phone", widget: string }
+              - { name: email, label: "Email", widget: string }
+              - { name: addressStreet, label: "Street address", widget: string }
+              - { name: addressCity, label: "City", widget: string }
+              - { name: addressRegion, label: "Region / county", widget: string }
+              - { name: addressCountry, label: "Country code (e.g. KE)", widget: string }
+              - { name: lat, label: "Latitude", widget: number, value_type: float, step: 0.0001 }
+              - { name: lng, label: "Longitude", widget: number, value_type: float, step: 0.0001 }
+          - name: booking
+            label: "Booking"
+            widget: object
+            fields:
+              - { name: url, label: "Booking engine URL", widget: string }
+          - name: seo
+            label: "SEO Meta"
+            widget: object
+            fields:
+              - { name: title, label: "<title> tag", widget: string }
+              - { name: description, label: "Meta description", widget: text }
+              - { name: keywords, label: "Meta keywords (comma-separated)", widget: text }
+              - { name: ogImage, label: "OG image URL", widget: string }
+
+  # ----------------------------------------------------------
+  # 2. PAGE SECTIONS (singletons — one file per section)
+  # ----------------------------------------------------------
+  - name: "sections"
+    label: "Page Sections"
+    description: "Each chapter of the homepage. Edit copy, headlines, images here."
+    delete: false
+    files:
+
+      - name: "hero"
+        label: "Hero"
+        file: "src/content/sections/hero.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "hero" }
+          - { name: eyebrow, label: "Top line (above headline)", widget: string }
+          - { name: headline, label: "Main headline (italicised phrase below should appear inside this)", widget: string }
+          - { name: headlineEm, label: "Phrase from headline to italicise", widget: string }
+          - { name: tagline, label: "Tagline (italic, below headline)", widget: string }
+          - { name: image, label: "Background image", widget: image }
+          - name: meta
+            label: "Hero meta items (3 max recommended)"
+            widget: list
+            max: 4
+            fields:
+              - { name: label, label: "Label", widget: string }
+              - { name: value, label: "Value", widget: string }
+
+      - name: "letter"
+        label: "Chapter I — Letter"
+        file: "src/content/sections/letter.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "letter" }
+          - { name: chapterLabel, label: "Chapter label", widget: string, default: "Chapter I" }
+          - { name: chapterSubtitle, label: "Chapter subtitle", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string, hint: "Wrap a phrase in asterisks to italicise: *intimate*" }
+          - { name: image, label: "Image", widget: image }
+          - { name: imageAlt, label: "Image alt text", widget: string }
+          - { name: imageCaption, label: "Image caption", widget: string }
+          - { name: paragraphs, label: "Paragraphs", widget: list, field: { name: paragraph, label: "Paragraph", widget: text } }
+          - { name: signatureName, label: "Signature name", widget: string }
+          - { name: signatureLocation, label: "Signature location", widget: string }
+
+      - name: "setting"
+        label: "Chapter II — Setting"
+        file: "src/content/sections/setting.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "setting" }
+          - { name: chapterLabel, label: "Chapter label", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
+          - { name: paragraphs, label: "Paragraphs", widget: list, field: { name: paragraph, widget: text, label: "Paragraph" } }
+          - name: stats
+            label: "Stats (4 recommended)"
+            widget: list
+            max: 6
+            fields:
+              - { name: value, label: "Value (e.g. 1968)", widget: string }
+              - { name: label, label: "Label (e.g. Marine park protected)", widget: string }
+          - { name: image, label: "Image", widget: image }
+          - { name: imageAlt, label: "Image alt text", widget: string }
+
+      - name: "villas"
+        label: "Chapter III — Villas"
+        file: "src/content/sections/villas.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "villas" }
+          - { name: chapterLabel, label: "Chapter label", widget: string }
+          - { name: chapterSubtitle, label: "Chapter subtitle", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
+          - { name: lede, label: "Intro paragraph", widget: text }
+          - name: villas
+            label: "Villas"
+            widget: list
+            fields:
+              - { name: number, label: "Display number (e.g. — 01)", widget: string }
+              - { name: name, label: "Villa name", widget: string }
+              - { name: nameEm, label: "Italicised part of name (e.g. Villa)", widget: string }
+              - { name: description, label: "Description", widget: text }
+              - { name: capacity, label: "Capacity (e.g. 2 guests)", widget: string }
+              - { name: meta, label: "Meta line (e.g. 1 bedroom · 1 bath)", widget: string }
+          - { name: footnote, label: "Footnote (below the list)", widget: text }
+
+      - name: "facilities"
+        label: "Chapter IV — Facilities"
+        file: "src/content/sections/facilities.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "facilities" }
+          - { name: chapterLabel, label: "Chapter label", widget: string }
+          - { name: chapterSubtitle, label: "Chapter subtitle", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
+          - { name: lede, label: "Intro paragraph", widget: text }
+          - name: facilities
+            label: "Facility cards"
+            widget: list
+            fields:
+              - { name: title, label: "Title (first part)", widget: string }
+              - { name: titleEm, label: "Title (italicised part)", widget: string }
+              - { name: description, label: "Description", widget: text }
+              - name: icon
+                label: "Icon"
+                widget: select
+                options: ["pool", "beach", "restaurant", "wellness", "gardens", "concierge"]
+          - { name: footerStrip, label: "Footer strip text", widget: string }
+
+      - name: "dining"
+        label: "Chapter V — Dining"
+        file: "src/content/sections/dining.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "dining" }
+          - { name: chapterLabel, label: "Chapter label", widget: string }
+          - { name: chapterSubtitle, label: "Chapter subtitle", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
+          - { name: lede, label: "Intro paragraph", widget: text }
+          - name: restaurants
+            label: "Restaurants"
+            widget: list
+            fields:
+              - { name: tag, label: "Tag (small label above name)", widget: string }
+              - { name: name, label: "Name (first part)", widget: string }
+              - { name: nameEm, label: "Name (italicised part)", widget: string }
+              - { name: paragraphs, label: "Paragraphs", widget: list, field: { name: paragraph, widget: text, label: "Paragraph" } }
+              - { name: image, label: "Image", widget: image }
+              - { name: imageAlt, label: "Image alt text", widget: string }
+              - name: meta
+                label: "Meta items"
+                widget: list
+                fields:
+                  - { name: label, label: "Label", widget: string }
+                  - { name: value, label: "Value", widget: string }
+                  - { name: link, label: "Link (optional, e.g. tel:...)", widget: string, required: false }
+
+      - name: "beach"
+        label: "Chapter VI — Beach Club"
+        file: "src/content/sections/beach.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "beach" }
+          - { name: chapterLabel, label: "Chapter label", widget: string }
+          - { name: chapterSubtitle, label: "Chapter subtitle", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
+          - { name: lede, label: "Lede paragraph", widget: text }
+          - { name: paragraphs, label: "Paragraphs", widget: list, field: { name: paragraph, widget: text, label: "Paragraph" } }
+          - name: features
+            label: "Beach features (6 recommended)"
+            widget: list
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: description, label: "Description", widget: text }
+          - { name: image, label: "Foreground image", widget: image }
+          - { name: imageAlt, label: "Image alt text", widget: string }
+          - { name: backgroundImage, label: "Parallax background image", widget: image }
+
+      - name: "family"
+        label: "Family / Planhotel"
+        file: "src/content/sections/family.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "family" }
+          - { name: eyebrow, label: "Eyebrow", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
+          - { name: lede, label: "Intro paragraph", widget: text }
+          - { name: pillars, label: "Brand pillars", widget: list, field: { name: pillar, widget: string, label: "Pillar" } }
+          - name: brands
+            label: "Sister brands"
+            widget: list
+            fields:
+              - { name: name, label: "Brand name", widget: string }
+              - { name: tagline, label: "Tagline", widget: string }
+              - { name: description, label: "Description", widget: text }
+              - { name: url, label: "URL", widget: string }
+
+  # ----------------------------------------------------------
+  # 3. EXCURSIONS (folder collection — one file per excursion)
+  # ----------------------------------------------------------
+  - name: "excursions"
+    label: "Excursions"
+    label_singular: "Excursion"
+    description: "Activities & excursions shown in Chapter VII. Add, edit, reorder by changing 'order'."
+    folder: "src/content/excursions"
+    create: true
+    delete: true
+    format: "json"
+    extension: "json"
+    slug: "{{order}}-{{slug}}"
+    summary: "{{order}} · {{name}} {{nameEm}}"
+    sortable_fields: ["order", "name"]
+    fields:
+      - { name: order, label: "Display order", widget: number, value_type: int, default: 1 }
+      - { name: name, label: "Name (first part)", widget: string }
+      - { name: nameEm, label: "Name (italicised part)", widget: string }
+      - { name: category, label: "Category", widget: string, hint: "Small label above name (e.g. Marine reserve)" }
+      - { name: distance, label: "Distance / time badge", widget: string }
+      - { name: description, label: "Description", widget: text }
+      - { name: image, label: "Image", widget: image }
+      - { name: imageAlt, label: "Image alt text", widget: string }
+      - { name: published, label: "Published", widget: boolean, default: true }
+
+  # ----------------------------------------------------------
+  # 4. FIELD NOTES (folder collection)
+  # ----------------------------------------------------------
+  - name: "notes"
+    label: "Field Notes"
+    label_singular: "Field Note"
+    description: "Editorial dispatches shown in the Field Notes section."
+    folder: "src/content/notes"
+    create: true
+    delete: true
+    format: "json"
+    extension: "json"
+    slug: "{{order}}-{{slug}}"
+    summary: "{{noteNumber}} · {{title}} {{titleEm}}"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { name: order, label: "Display order", widget: number, value_type: int, default: 1 }
+      - { name: noteNumber, label: "Note number label (e.g. Field Note · No. 12)", widget: string }
+      - { name: title, label: "Title (first part)", widget: string }
+      - { name: titleEm, label: "Title (italicised part)", widget: string }
+      - { name: excerpt, label: "Excerpt", widget: text }
+      - { name: image, label: "Image", widget: image }
+      - { name: imageAlt, label: "Image alt text", widget: string }
+      - { name: link, label: "Link (full article URL or #)", widget: string, default: "#" }
+      - { name: published, label: "Published", widget: boolean, default: true }

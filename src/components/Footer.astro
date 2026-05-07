@@ -1,0 +1,63 @@
+---
+import { getEntry } from 'astro:content';
+const settings = await getEntry('site', 'settings');
+const s = settings.data;
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          EXPLOREANS
+          <small>Watamu · Beach Club &amp; Villas</small>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.95rem; max-width: 38ch; line-height: 1.6;">An intimate, nature-led ecolodge on the quiet bay of Mayungu, between Malindi and the Watamu Marine Park, Kenya.</p>
+        <p class="footer-tag">— {s.tagline}</p>
+        <p class="footer-contact-line">
+          <a href={`tel:${s.contact.phone.replace(/\s+/g, '')}`}>{s.contact.phone}</a> &nbsp;·&nbsp; <a href={`mailto:${s.contact.email}`}>{s.contact.email}</a>
+        </p>
+      </div>
+      <div>
+        <h5>The Property</h5>
+        <ul>
+          <li><a href="#letter">The Place</a></li>
+          <li><a href="#villas">The Villas</a></li>
+          <li><a href="#facilities">Facilities</a></li>
+          <li><a href="#dining">Dining</a></li>
+          <li><a href="#beach">Beach Club</a></li>
+          <li><a href="#excursions">Excursions</a></li>
+          <li><a href="#notes">Field Notes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Reservations</h5>
+        <ul>
+          <li><a href={s.booking.url} target="_blank" rel="noopener">Book a villa</a></li>
+          <li><a href={`tel:${s.contact.phoneRestaurant.replace(/\s+/g, '')}`}>Restaurant bookings</a></li>
+          <li><a href={`mailto:${s.contact.email}`}>Group enquiries</a></li>
+          <li>{s.contact.addressStreet}</li>
+          <li>{s.contact.addressRegion} · Kenya</li>
+        </ul>
+      </div>
+      <div>
+        <h5>The Collection</h5>
+        <ul>
+          <li><a href="https://exploreans.com" target="_blank" rel="noopener">Exploreans</a></li>
+          <li><a href="https://mara.exploreans.com" target="_blank" rel="noopener">Mara River Camp</a></li>
+          <li><a href="https://www.diamondsresorts.com/" target="_blank" rel="noopener">Diamonds Resorts</a></li>
+          <li><a href="https://www.sandies-resorts.com/" target="_blank" rel="noopener">Sandies Resorts</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-base">
+      <div>© {year} Planhotel SA · A member of Planhotel Hospitality Group, Lugano</div>
+      <div>
+        <a href="#">Privacy</a> &nbsp; · &nbsp;
+        <a href="#">Cookies</a> &nbsp; · &nbsp;
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>

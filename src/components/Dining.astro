@@ -1,0 +1,41 @@
+---
+import { getEntry } from 'astro:content';
+import RichText from './RichText.astro';
+
+const entry = await getEntry('sections', 'dining');
+const d = entry.data;
+if (d.type !== 'dining') throw new Error('Expected dining section');
+---
+<section class="dining" id="dining">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-tag">{d.chapterLabel}<span>{d.chapterSubtitle}</span></div>
+      <RichText text={d.headline} as="h2" />
+    </div>
+
+    <p class="lede" style="margin-bottom: 5rem;">{d.lede}</p>
+
+    {d.restaurants.map((r, i) => (
+      <div class={i % 2 === 1 ? 'dining-grid reverse' : 'dining-grid'}>
+        <div class="dining-text">
+          <div class="dining-tag">{r.tag}</div>
+          <h3>{r.name} <em>{r.nameEm}</em></h3>
+          {r.paragraphs.map(p => <p>{p}</p>)}
+          <div class="dining-meta">
+            {r.meta.map(m => (
+              <div>
+                {m.label}
+                <strong>
+                  {m.link ? <a href={m.link}>{m.value}</a> : m.value}
+                </strong>
+              </div>
+            ))}
+          </div>
+        </div>
+        <figure class="dining-fig">
+          <img src={r.image} alt={r.imageAlt} />
+        </figure>
+      </div>
+    ))}
+  </div>
+</section>

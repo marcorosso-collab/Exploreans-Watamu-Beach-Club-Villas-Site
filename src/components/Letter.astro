@@ -1,0 +1,31 @@
+---
+import { getEntry } from 'astro:content';
+import RichText from './RichText.astro';
+import WavePattern from './WavePattern.astro';
+
+const entry = await getEntry('sections', 'letter');
+const d = entry.data;
+if (d.type !== 'letter') throw new Error('Expected letter section');
+---
+<section class="letter" id="letter">
+  <WavePattern />
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-tag">{d.chapterLabel}<span>{d.chapterSubtitle}</span></div>
+      <RichText text={d.headline} as="h2" />
+    </div>
+    <div class="letter-grid">
+      <figure class="letter-figure">
+        <img src={d.image} alt={d.imageAlt} />
+        <figcaption>{d.imageCaption}</figcaption>
+      </figure>
+      <div class="letter-body">
+        {d.paragraphs.map(p => <p>{p}</p>)}
+        <div class="signature">
+          {d.signatureName}
+          <small>{d.signatureLocation}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

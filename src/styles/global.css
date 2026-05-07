@@ -1,0 +1,290 @@
+/* ============================================================
+   Exploreans Watamu — Global Styles
+   Extracted from single-file build, applies site-wide via Base layout
+   ============================================================ */
+
+:root {
+  --forest:        #2E5E3F;
+  --sage:          #7A9A6D;
+  --moss:          #1A2E20;
+  --leaf:          #EAF0E6;
+  --ochre:         #D6C8A8;
+  --savanna:       #C4A87A;
+  --shadow:        #3D3D35;
+  --paper:         #FAFAF5;
+  --paper-warm:    #F5F1E8;
+  --rule:          rgba(26, 46, 32, 0.12);
+  --serif-display: 'Playfair Display', Georgia, serif;
+  --serif-body:    'EB Garamond', Georgia, serif;
+  --sans-fn:       'Inter', system-ui, sans-serif;
+  --measure: 68ch;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--serif-body); font-size: 19px; line-height: 1.65; color: var(--moss); background: var(--paper); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: var(--ochre); color: var(--moss); }
+a { color: var(--forest); text-decoration: none; transition: color .25s ease; }
+a:hover { color: var(--moss); }
+img { display: block; max-width: 100%; height: auto; }
+
+h1, h2, h3, h4 { font-family: var(--serif-display); font-weight: 500; color: var(--moss); letter-spacing: -0.01em; }
+h1 { font-size: clamp(3rem, 7vw, 6.25rem); line-height: 1.02; font-weight: 400; }
+h2 { font-size: clamp(2rem, 4.5vw, 3.4rem); line-height: 1.1; font-weight: 400; }
+h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); line-height: 1.2; }
+h4 { font-size: 1.15rem; }
+em, .italic { font-style: italic; color: var(--forest); font-weight: 500; }
+h1 em, h2 em, h3 em { color: inherit; }
+
+.eyebrow { font-family: var(--sans-fn); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; color: var(--sage); }
+.label { font-family: var(--sans-fn); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; color: var(--sage); }
+.lede { font-size: clamp(1.15rem, 1.6vw, 1.45rem); line-height: 1.55; font-style: italic; color: var(--shadow); max-width: 56ch; }
+
+.container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); position: relative; }
+section { padding: clamp(5rem, 10vw, 9rem) 0; position: relative; }
+
+/* ============ Bathymetric wave pattern ============ */
+.wave-pattern {
+  position: absolute; inset: 0; pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 40%, var(--forest) 40.2%, transparent 40.55%),
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 51%, var(--forest) 51.2%, transparent 51.55%),
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 62%, var(--forest) 62.2%, transparent 62.55%),
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 73%, var(--forest) 73.2%, transparent 73.55%),
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 84%, var(--forest) 84.2%, transparent 84.55%),
+    radial-gradient(ellipse 1200px 160px at 82% 78%, transparent 40%, var(--forest) 40.2%, transparent 40.55%),
+    radial-gradient(ellipse 1200px 160px at 82% 78%, transparent 52%, var(--forest) 52.2%, transparent 52.55%),
+    radial-gradient(ellipse 1200px 160px at 82% 78%, transparent 64%, var(--forest) 64.2%, transparent 64.55%),
+    radial-gradient(ellipse 1200px 160px at 82% 78%, transparent 76%, var(--forest) 76.2%, transparent 76.55%);
+}
+.wave-pattern.on-dark {
+  opacity: 0.11;
+  background-image:
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 40%, var(--ochre) 40.2%, transparent 40.55%),
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 51%, var(--ochre) 51.2%, transparent 51.55%),
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 62%, var(--ochre) 62.2%, transparent 62.55%),
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 73%, var(--ochre) 73.2%, transparent 73.55%),
+    radial-gradient(ellipse 1500px 190px at 18% 26%, transparent 84%, var(--ochre) 84.2%, transparent 84.55%),
+    radial-gradient(ellipse 1200px 160px at 82% 78%, transparent 40%, var(--ochre) 40.2%, transparent 40.55%),
+    radial-gradient(ellipse 1200px 160px at 82% 78%, transparent 52%, var(--ochre) 52.2%, transparent 52.55%),
+    radial-gradient(ellipse 1200px 160px at 82% 78%, transparent 64%, var(--ochre) 64.2%, transparent 64.55%),
+    radial-gradient(ellipse 1200px 160px at 82% 78%, transparent 76%, var(--ochre) 76.2%, transparent 76.55%);
+}
+
+/* ============ Nav ============ */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem 0; background: rgba(250, 250, 245, 0); transition: background .35s ease, padding .35s ease, box-shadow .35s ease; }
+.nav.scrolled { background: rgba(250, 250, 245, 0.96); padding: 0.85rem 0; box-shadow: 0 1px 0 var(--rule); backdrop-filter: blur(8px); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.nav-brand { font-family: var(--serif-display); font-size: 1.1rem; color: var(--paper); letter-spacing: 0.04em; transition: color .35s ease; flex-shrink: 0; }
+.nav.scrolled .nav-brand { color: var(--moss); }
+.nav-brand small { display: block; font-family: var(--sans-fn); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.7; margin-top: 2px; }
+.nav-links { display: flex; gap: 1.85rem; align-items: center; list-style: none; }
+.nav-links a { font-family: var(--sans-fn); font-size: 0.74rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--paper); transition: color .35s ease, opacity .25s ease; opacity: 0.92; }
+.nav.scrolled .nav-links a { color: var(--moss); }
+.nav-links a:hover { opacity: 1; color: var(--ochre); }
+.nav.scrolled .nav-links a:hover { color: var(--forest); }
+.btn { font-family: var(--sans-fn); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; padding: 0.85rem 1.6rem; border: 1px solid currentColor; background: transparent; color: var(--paper); cursor: pointer; transition: all .3s ease; display: inline-block; flex-shrink: 0; }
+.nav.scrolled .btn { color: var(--forest); }
+.btn:hover { background: var(--forest); border-color: var(--forest); color: var(--paper); }
+.btn-solid { background: var(--forest); color: var(--paper); border-color: var(--forest); }
+.btn-solid:hover { background: var(--moss); border-color: var(--moss); color: var(--paper); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+.nav-toggle span { display: block; width: 26px; height: 1.5px; background: var(--paper); margin: 5px 0; transition: all .3s ease; }
+.nav.scrolled .nav-toggle span { background: var(--moss); }
+
+/* ============ Hero ============ */
+.hero { min-height: 100vh; position: relative; display: flex; align-items: flex-end; color: var(--paper); padding: 8rem 0 5rem; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26, 46, 32, 0.15) 0%, rgba(26, 46, 32, 0.05) 35%, rgba(26, 46, 32, 0.85) 100%), var(--hero-image, url('https://exploreans.com/images/secluded-beach-club-experience-exploreans-malaika-kenya.jpg')) center/cover; z-index: -1; }
+.hero-volume { font-family: var(--serif-display); font-style: italic; font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.85; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+.hero-volume::after { content: ''; flex: 0 0 60px; height: 1px; background: currentColor; opacity: 0.6; }
+.hero h1 { color: var(--paper); font-weight: 400; margin-bottom: 1.75rem; max-width: 14ch; }
+.hero h1 em { color: var(--ochre); }
+.hero-tagline { font-family: var(--serif-display); font-style: italic; font-size: clamp(1.3rem, 2vw, 1.7rem); margin-bottom: 2.5rem; opacity: 0.95; }
+.hero-meta { display: flex; gap: 3rem; flex-wrap: wrap; font-family: var(--sans-fn); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.85; }
+.hero-meta strong { display: block; font-family: var(--serif-display); font-style: italic; font-size: 1.4rem; text-transform: none; letter-spacing: 0; font-weight: 400; margin-top: 0.4rem; opacity: 1; }
+.scroll-cue { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: var(--paper); font-family: var(--sans-fn); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.3em; opacity: 0.7; text-align: center; }
+.scroll-cue::after { content: ''; display: block; width: 1px; height: 40px; background: currentColor; margin: 0.75rem auto 0; animation: scroll-pulse 2.4s ease-in-out infinite; transform-origin: top; }
+@keyframes scroll-pulse { 0%, 100% { transform: scaleY(0.3); opacity: 0.3; } 50% { transform: scaleY(1); opacity: 0.9; } }
+
+/* ============ Section header ============ */
+.section-header { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; margin-bottom: clamp(3rem, 6vw, 5rem); }
+.section-header-tag { font-family: var(--sans-fn); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; color: var(--sage); padding-top: 1.4rem; border-top: 1px solid var(--rule); }
+.section-header-tag span { font-family: var(--serif-display); font-style: italic; text-transform: none; letter-spacing: 0; font-size: 0.9rem; color: var(--shadow); display: block; margin-top: 0.35rem; }
+
+/* ============ Letter ============ */
+.letter { background: var(--paper-warm); position: relative; overflow: hidden; }
+.letter-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.letter-figure { position: relative; aspect-ratio: 4/5; overflow: hidden; }
+.letter-figure img { width: 100%; height: 100%; object-fit: cover; }
+.letter-figure figcaption { position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem; color: var(--paper); font-family: var(--serif-display); font-style: italic; font-size: 0.85rem; text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+.letter-body p { margin-bottom: 1.5rem; max-width: var(--measure); }
+.letter-body p:first-of-type::first-letter { font-family: var(--serif-display); font-size: 4.5rem; line-height: 0.9; float: left; color: var(--forest); margin: 0.35rem 0.6rem 0 0; font-weight: 400; }
+.signature { margin-top: 2.5rem; font-family: var(--serif-display); font-style: italic; color: var(--forest); }
+.signature small { display: block; font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--sage); font-style: normal; margin-top: 0.3rem; }
+
+/* ============ Setting ============ */
+.setting { background: var(--leaf); position: relative; overflow: hidden; }
+.setting-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.setting-text h2 { margin-bottom: 1.5rem; max-width: 16ch; }
+.setting-text p { margin-bottom: 1.25rem; max-width: 50ch; }
+.setting-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 2.5rem; margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
+.setting-stat strong { display: block; font-family: var(--serif-display); font-style: italic; font-size: 2.2rem; color: var(--forest); line-height: 1; margin-bottom: 0.4rem; font-weight: 400; }
+.setting-stat span { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--shadow); }
+.setting-figure { aspect-ratio: 4/5; overflow: hidden; position: relative; }
+.setting-figure img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ============ Villas ============ */
+.villas { background: var(--paper); }
+.villa-list { display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
+.villa { display: grid; grid-template-columns: 0.6fr 1fr 1.4fr 0.5fr; align-items: center; gap: 2rem; padding: 2.25rem 0; border-bottom: 1px solid var(--rule); transition: background .3s ease, padding-left .3s ease; cursor: pointer; position: relative; }
+.villa:hover { background: var(--leaf); padding-left: 1.5rem; }
+.villa-num { font-family: var(--serif-display); font-style: italic; color: var(--sage); font-size: 1.05rem; }
+.villa-name { font-family: var(--serif-display); font-size: 1.5rem; color: var(--moss); line-height: 1.15; }
+.villa-name em { color: var(--forest); }
+.villa-desc { color: var(--shadow); font-size: 0.97rem; line-height: 1.55; max-width: 52ch; }
+.villa-meta { text-align: right; font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--sage); }
+.villa-meta strong { display: block; font-family: var(--serif-display); font-style: italic; font-size: 1.25rem; color: var(--forest); text-transform: none; letter-spacing: 0; font-weight: 400; margin-bottom: 0.2rem; }
+.villa-note { margin-top: 3rem; text-align: center; font-style: italic; color: var(--shadow); font-size: 1rem; }
+
+/* ============ Facilities ============ */
+.facilities { background: var(--moss); color: var(--paper); position: relative; overflow: hidden; }
+.facilities h2 { color: var(--paper); }
+.facilities .section-header-tag { color: var(--sage); border-color: rgba(234, 240, 230, 0.15); }
+.facilities .section-header-tag span { color: var(--ochre); }
+.facilities .lede { color: rgba(250, 250, 245, 0.85); }
+.fac-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+.fac-card { background: rgba(250, 250, 245, 0.04); border: 1px solid rgba(234, 240, 230, 0.12); padding: 2.25rem 2rem; transition: transform .4s ease, background .3s ease, border-color .3s ease; }
+.fac-card:hover { transform: translateY(-4px); background: rgba(250, 250, 245, 0.06); border-color: rgba(214, 200, 168, 0.35); }
+.fac-icon { width: 48px; height: 48px; margin-bottom: 1.5rem; color: var(--ochre); }
+.fac-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.fac-card h3 { color: var(--paper); font-style: italic; font-weight: 400; font-size: 1.5rem; margin-bottom: 0.85rem; }
+.fac-card h3 em { color: var(--ochre); }
+.fac-card p { color: rgba(250, 250, 245, 0.78); font-size: 0.95rem; line-height: 1.6; }
+.fac-footer-strip { margin-top: 3rem; text-align: center; font-style: italic; color: rgba(250, 250, 245, 0.7); font-size: 0.95rem; }
+
+/* ============ Dining ============ */
+.dining { background: var(--paper); }
+.dining-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; margin-bottom: 5rem; }
+.dining-grid:last-child { margin-bottom: 0; }
+.dining-grid.reverse { grid-template-columns: 1fr 1.1fr; }
+.dining-grid.reverse .dining-text { order: 2; }
+.dining-grid.reverse .dining-fig { order: 1; }
+.dining-text h3 { margin-bottom: 1.25rem; font-style: italic; font-weight: 400; }
+.dining-text h3 em { color: var(--forest); }
+.dining-text p { margin-bottom: 1.25rem; max-width: 52ch; color: var(--shadow); }
+.dining-fig { aspect-ratio: 5/4; overflow: hidden; }
+.dining-fig img { width: 100%; height: 100%; object-fit: cover; }
+.dining-tag { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--sage); margin-bottom: 1rem; }
+.dining-meta { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); display: flex; gap: 2.5rem; flex-wrap: wrap; font-family: var(--sans-fn); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--shadow); }
+.dining-meta div strong { display: block; font-family: var(--serif-display); font-style: italic; font-size: 1.05rem; color: var(--forest); text-transform: none; letter-spacing: 0; font-weight: 400; margin-top: 0.25rem; }
+.dining-meta a { color: var(--forest); }
+
+/* ============ Beach ============ */
+.beach { background: linear-gradient(180deg, rgba(46, 94, 63, 0.92) 0%, rgba(26, 46, 32, 0.88) 100%), var(--beach-bg, url('https://exploreans.com/images/coastal-refreshments-exploreans-malaika-beach-club.jpg')) center/cover fixed; color: var(--paper); }
+.beach h2 { color: var(--paper); }
+.beach .section-header-tag { color: var(--sage); border-color: rgba(234, 240, 230, 0.15); }
+.beach .section-header-tag span { color: var(--ochre); }
+.beach .lede { color: rgba(250, 250, 245, 0.92); }
+.beach-feature { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); margin-top: 4rem; align-items: center; }
+.beach-text p { color: rgba(250, 250, 245, 0.88); margin-bottom: 1.5rem; max-width: 52ch; }
+.beach-features-list { margin-top: 2.5rem; padding-top: 2.5rem; border-top: 1px solid rgba(234, 240, 230, 0.18); display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem 2rem; }
+.beach-feature-item h4 { font-family: var(--serif-display); font-style: italic; font-weight: 400; color: var(--ochre); font-size: 1.15rem; margin-bottom: 0.4rem; }
+.beach-feature-item p { color: rgba(250, 250, 245, 0.78); font-size: 0.9rem; line-height: 1.55; margin-bottom: 0; }
+.beach-fig { aspect-ratio: 4/5; overflow: hidden; border: 1px solid rgba(234, 240, 230, 0.2); }
+.beach-fig img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ============ Excursions ============ */
+.excursions { background: var(--paper-warm); position: relative; overflow: hidden; }
+.exc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+.exc-card { background: var(--paper); border: 1px solid var(--rule); overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: transform .35s ease, border-color .3s ease, box-shadow .35s ease; }
+.exc-card:hover { transform: translateY(-4px); border-color: var(--sage); box-shadow: 0 12px 30px rgba(26, 46, 32, 0.08); }
+.exc-img { aspect-ratio: 4/3; overflow: hidden; position: relative; }
+.exc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+.exc-card:hover .exc-img img { transform: scale(1.05); }
+.exc-distance { position: absolute; top: 1rem; left: 1rem; background: rgba(26, 46, 32, 0.85); color: var(--paper); font-family: var(--sans-fn); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.2em; padding: 0.4rem 0.7rem; backdrop-filter: blur(6px); }
+.exc-body { padding: 1.75rem; display: flex; flex-direction: column; flex: 1; }
+.exc-cat { font-family: var(--sans-fn); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--sage); margin-bottom: 0.6rem; }
+.exc-card h3 { font-family: var(--serif-display); font-style: italic; font-weight: 400; font-size: 1.4rem; line-height: 1.15; margin-bottom: 0.85rem; color: var(--moss); }
+.exc-card h3 em { color: var(--forest); }
+.exc-body p { color: var(--shadow); font-size: 0.92rem; line-height: 1.55; flex: 1; }
+.exc-cta { text-align: center; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--rule); color: var(--shadow); font-style: italic; font-size: 1.05rem; }
+
+/* ============ Notes ============ */
+.notes { background: var(--paper); }
+.notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem 2.5rem; margin-top: 4rem; }
+.note { cursor: pointer; }
+.note-img { aspect-ratio: 4/3; overflow: hidden; margin-bottom: 1.5rem; }
+.note-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+.note:hover .note-img img { transform: scale(1.04); }
+.note-meta { font-family: var(--sans-fn); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--sage); margin-bottom: 0.75rem; }
+.note h3 { font-style: italic; font-weight: 400; margin-bottom: 0.85rem; line-height: 1.2; }
+.note h3 em { color: var(--forest); }
+.note p { color: var(--shadow); font-size: 0.95rem; line-height: 1.55; margin-bottom: 1rem; }
+.note a { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--forest); border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+
+/* ============ Family ============ */
+.family { background: var(--leaf); text-align: center; position: relative; overflow: hidden; }
+.family h2 { margin-bottom: 1.5rem; max-width: 22ch; margin-left: auto; margin-right: auto; }
+.family > .container > p { max-width: 56ch; margin: 0 auto 3.5rem; color: var(--shadow); }
+.pillars { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 2.5rem 0 4rem; font-family: var(--sans-fn); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--forest); }
+.pillars span { display: flex; align-items: center; gap: 2rem; }
+.pillars span::after { content: '·'; color: var(--sage); }
+.pillars span:last-child::after { display: none; }
+.family-brands { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+.brand-card { padding: 2.5rem 2rem; background: var(--paper); border: 1px solid var(--rule); text-align: left; transition: transform .35s ease, border-color .3s ease; }
+.brand-card:hover { transform: translateY(-4px); border-color: var(--sage); }
+.brand-card-name { font-family: var(--serif-display); font-size: 1.5rem; color: var(--moss); margin-bottom: 0.3rem; }
+.brand-card-tag { font-family: var(--serif-display); font-style: italic; color: var(--forest); margin-bottom: 1rem; font-size: 1rem; }
+.brand-card p { color: var(--shadow); font-size: 0.95rem; line-height: 1.55; margin-bottom: 1.25rem; }
+.brand-card a { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; }
+
+/* ============ Footer ============ */
+footer { background: var(--moss); color: rgba(250, 250, 245, 0.75); padding: 5rem 0 2rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-brand { font-family: var(--serif-display); color: var(--paper); font-size: 1.1rem; margin-bottom: 0.4rem; letter-spacing: 0.04em; }
+.footer-brand small { display: block; font-family: var(--sans-fn); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.25em; margin-top: 4px; color: var(--sage); }
+.footer-tag { margin-top: 1.5rem; font-style: italic; color: var(--ochre); }
+.footer-contact-line { margin-top: 1.5rem; font-size: 0.9rem; color: rgba(250, 250, 245, 0.7); }
+.footer-contact-line a { color: rgba(250, 250, 245, 0.85); }
+footer h5 { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--ochre); margin-bottom: 1.25rem; font-weight: 500; }
+footer ul { list-style: none; }
+footer ul li { margin-bottom: 0.65rem; font-size: 0.95rem; }
+footer a { color: rgba(250, 250, 245, 0.78); }
+footer a:hover { color: var(--paper); }
+.footer-base { padding-top: 2rem; border-top: 1px solid rgba(234, 240, 230, 0.12); display: flex; justify-content: space-between; align-items: center; font-family: var(--sans-fn); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(234, 240, 230, 0.55); flex-wrap: wrap; gap: 1rem; }
+.footer-base a { color: rgba(234, 240, 230, 0.65); }
+
+/* ============ Responsive ============ */
+@media (max-width: 1100px) { .nav-links { gap: 1.25rem; } .nav-links a { font-size: 0.7rem; letter-spacing: 0.12em; } }
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .nav-cta { display: none; }
+  .nav.open .nav-links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); padding: 2rem; gap: 1.5rem; }
+  .nav.open .nav-links a { color: var(--moss); }
+  .section-header { grid-template-columns: 1fr; }
+  .letter-grid { grid-template-columns: 1fr; }
+  .setting-grid { grid-template-columns: 1fr; }
+  .fac-grid { grid-template-columns: 1fr; }
+  .dining-grid, .dining-grid.reverse { grid-template-columns: 1fr; }
+  .dining-grid.reverse .dining-text { order: 2; }
+  .dining-grid.reverse .dining-fig { order: 1; }
+  .beach-feature { grid-template-columns: 1fr; }
+  .beach-features-list { grid-template-columns: 1fr; }
+  .exc-grid { grid-template-columns: 1fr; }
+  .villa { grid-template-columns: 1fr; gap: 0.4rem; padding: 1.75rem 0; }
+  .villa-meta { text-align: left; }
+  .villa-num { display: none; }
+  .notes-grid { grid-template-columns: 1fr; }
+  .family-brands { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .pillars span::after { display: none; }
+  .pillars { flex-direction: column; gap: 0.75rem; }
+  .pillars span { gap: 0; }
+}
+@media (max-width: 640px) { .beach { background-attachment: scroll; } }
+
+/* ============ Reveal on scroll ============ */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }

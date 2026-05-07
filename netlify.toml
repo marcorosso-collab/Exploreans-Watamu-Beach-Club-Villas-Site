@@ -1,0 +1,29 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Sveltia CMS uses Netlify Identity + git-gateway by default
+# Once deployed, enable Identity in the Netlify dashboard, then enable git-gateway
+# under Identity → Services → Git Gateway
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Pretty URL fallback for Astro
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

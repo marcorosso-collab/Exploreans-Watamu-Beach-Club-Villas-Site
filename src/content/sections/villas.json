@@ -1,0 +1,42 @@
+{
+  "type": "villas",
+  "chapterLabel": "Chapter III",
+  "chapterSubtitle": "The accommodation",
+  "headline": "Seventeen villas, *arranged loosely* around a swimming pool.",
+  "lede": "Four villa types — from an intimate one-bedroom to a generous four-bedroom — each with its own kitchen, lounge and private veranda. Built for couples who want quiet, families who want room, and small groups who want both. All-inclusive, half-board, and self-catering arrangements available.",
+  "villas": [
+    {
+      "number": "— 01",
+      "name": "One-Bedroom",
+      "nameEm": "Villa",
+      "description": "A single private house for two. Bedroom, lounge, fully equipped kitchenette, and a covered veranda for the long afternoon. The simplest expression of the place — and, for many, the right one.",
+      "capacity": "2 guests",
+      "meta": "1 bedroom · 1 bath"
+    },
+    {
+      "number": "— 02",
+      "name": "Two-Bedroom",
+      "nameEm": "Villa",
+      "description": "Built for a small family or two couples travelling together. Two bedrooms, a shared lounge and kitchen, and a veranda generous enough to take all meals outside. Steps from the central pool.",
+      "capacity": "4 guests",
+      "meta": "2 bedrooms · 2 baths"
+    },
+    {
+      "number": "— 03",
+      "name": "Three-Bedroom",
+      "nameEm": "Villa",
+      "description": "A house with room for everyone. Three bedrooms, lounge, full kitchen, and the kind of veranda where the day tends to begin late and end later. Ideal for families or three couples.",
+      "capacity": "6 guests",
+      "meta": "3 bedrooms · 3 baths"
+    },
+    {
+      "number": "— 04",
+      "name": "Four-Bedroom",
+      "nameEm": "Villa",
+      "description": "The largest villa — for multi-generational families, close friends, or anyone who wants a private compound on the Watamu coast. Four bedrooms, full kitchen, a wraparound veranda, and the option of in-villa dining.",
+      "capacity": "8 guests",
+      "meta": "4 bedrooms · 4 baths"
+    }
+  ],
+  "footnote": "All villas include daily housekeeping, complimentary Wi-Fi, and access to every facility on the property."
+}

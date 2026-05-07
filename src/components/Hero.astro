@@ -1,0 +1,24 @@
+---
+import { getEntry } from 'astro:content';
+const entry = await getEntry('sections', 'hero');
+const d = entry.data;
+if (d.type !== 'hero') throw new Error('Expected hero section');
+
+// Replace headlineEm phrase with <em>headlineEm</em> in headline
+const headlineParts = d.headline.split(d.headlineEm);
+---
+<header class="hero" style={`--hero-image: url('${d.image}')`}>
+  <div class="container">
+    <div class="hero-volume">{d.eyebrow}</div>
+    <h1>
+      {headlineParts[0]}<em>{d.headlineEm}</em>{headlineParts.slice(1).join(d.headlineEm)}
+    </h1>
+    <p class="hero-tagline">{d.tagline}</p>
+    <div class="hero-meta">
+      {d.meta.map(m => (
+        <div>{m.label}<strong>{m.value}</strong></div>
+      ))}
+    </div>
+  </div>
+  <div class="scroll-cue">Begin reading</div>
+</header>

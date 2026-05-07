@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('notes', ({ data }) => data.published);
+const items = all.sort((a, b) => a.data.order - b.data.order);
+---
+<section class="notes" id="notes">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-tag">Field Notes<span>Dispatches from the property</span></div>
+      <h2>What we've been <em>noticing</em>.</h2>
+    </div>
+
+    <div class="notes-grid">
+      {items.map(({ data: n }) => (
+        <article class="note">
+          <div class="note-img">
+            <img src={n.image} alt={n.imageAlt} />
+          </div>
+          <div class="note-meta">{n.noteNumber}</div>
+          <h3>{n.title} <em>{n.titleEm}</em></h3>
+          <p>{n.excerpt}</p>
+          <a href={n.link}>Read the entry</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

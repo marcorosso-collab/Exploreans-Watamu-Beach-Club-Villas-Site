@@ -1,0 +1,18 @@
+---
+// Renders text where *word* becomes <em>word</em> — used so editors can
+// add italic emphasis in Sveltia plain-text fields without dealing with HTML.
+interface Props {
+  text: string;
+  as?: string;
+}
+const { text, as = 'span' } = Astro.props;
+
+const parts = text.split(/(\*[^*]+\*)/g);
+const Tag = as;
+---
+<Tag>{parts.map(part => {
+  if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+    return <em>{part.slice(1, -1)}</em>;
+  }
+  return part;
+})}</Tag>

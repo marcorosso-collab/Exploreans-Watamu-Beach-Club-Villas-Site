@@ -1,0 +1,27 @@
+{
+  "type": "family",
+  "eyebrow": "— Part of the Planhotel family",
+  "headline": "Italian *style*, Swiss *service*, local *culture*.",
+  "lede": "Watamu is one of eleven properties under the Planhotel Hospitality Group — a Swiss-Italian independent headquartered in Lugano, with three distinct hospitality brands across the Indian Ocean and East Africa.",
+  "pillars": ["Passionate", "Limitless", "Authentic", "Now"],
+  "brands": [
+    {
+      "name": "Diamonds",
+      "tagline": "Treasured Moments",
+      "description": "Refined, gracious five-star hospitality across the Maldives, Kenya, and Zanzibar — where guests return, generation after generation.",
+      "url": "https://www.diamondsresorts.com/"
+    },
+    {
+      "name": "Sandies",
+      "tagline": "Infinite Inspirations",
+      "description": "Warm, all-inclusive, activity-rich island resorts. Holidays where boredom is simply not an option, for families and friends alike.",
+      "url": "https://www.sandies-resorts.com/"
+    },
+    {
+      "name": "Exploreans",
+      "tagline": "Authentic by Nature",
+      "description": "Intimate camps, lodges and retreats in remarkable landscapes. The Watamu Beach Club & Villas sits alongside the Mara River Camp in the wider collection.",
+      "url": "https://exploreans.com"
+    }
+  ]
+}

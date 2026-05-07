@@ -1,0 +1,41 @@
+{
+  "type": "dining",
+  "chapterLabel": "Chapter V",
+  "chapterSubtitle": "The two restaurants",
+  "headline": "Caught in the morning. *On the table* by lunch.",
+  "lede": "Cooking at Watamu is simple, honest, and grounded in what arrives at the dock and what grows nearby. Italian heritage in the kitchen, Indian Ocean fish on the menu, coastal Swahili spice — coconut, tamarind, lime — woven through the day. Both restaurants are open to non-resident diners; reservations are recommended.",
+  "restaurants": [
+    {
+      "tag": "— No. 1 · The main restaurant",
+      "name": "The",
+      "nameEm": "main pavilion",
+      "paragraphs": [
+        "An open-sided restaurant in the heart of the property. À la carte at every service — Italian classics alongside East African and international plates, built around the morning's fish, local produce, and a short list of dishes that change with the catch.",
+        "Breakfast under the trees. Lunch on the long table. Dinner by lantern, with the sound of the bush a few metres away."
+      ],
+      "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1100&auto=format&fit=crop&q=70",
+      "imageAlt": "The main restaurant pavilion at Watamu — open-sided dining under the trees, lantern-lit at dusk.",
+      "meta": [
+        { "label": "Service", "value": "Breakfast · Lunch · Dinner" },
+        { "label": "Style", "value": "À la carte" },
+        { "label": "Reservations", "value": "+254 799 388 781", "link": "tel:+254799388781" }
+      ]
+    },
+    {
+      "tag": "— No. 2 · The beach restaurant",
+      "name": "The",
+      "nameEm": "beach restaurant",
+      "paragraphs": [
+        "A second restaurant directly on the private beach club, set under a makuti gazebo with a clear view of the reef. Lighter than the main pavilion — grilled catch of the day, ceviche, fresh tropical fruit, and cold drinks that arrive without fuss.",
+        "The kind of lunch you stretch into the afternoon, then into a swim, then back to the table for one more thing."
+      ],
+      "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1100&auto=format&fit=crop&q=70",
+      "imageAlt": "The beach restaurant at Watamu — a thatched gazebo set on the sand of Mayungu Bay.",
+      "meta": [
+        { "label": "Service", "value": "Lunch · Light dinner" },
+        { "label": "Style", "value": "À la carte · Beachside" },
+        { "label": "Setting", "value": "On the private beach" }
+      ]
+    }
+  ]
+}

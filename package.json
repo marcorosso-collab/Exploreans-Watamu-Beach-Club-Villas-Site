@@ -1,0 +1,16 @@
+{
+  "name": "exploreans-watamu",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Exploreans Watamu Beach Club & Villas — official property site",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.0"
+  }
+}

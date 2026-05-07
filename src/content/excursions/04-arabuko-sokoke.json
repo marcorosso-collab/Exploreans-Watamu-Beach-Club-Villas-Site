@@ -1,0 +1,11 @@
+{
+  "order": 4,
+  "name": "Arabuko Sokoke",
+  "nameEm": "Forest",
+  "category": "Indigenous forest",
+  "distance": "10 min",
+  "description": "The largest surviving indigenous coastal forest in East Africa — 400 square kilometres of canopy. Home to monkeys, golden-rumped elephant shrews, and over 250 species of bird.",
+  "image": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=800&auto=format&fit=crop&q=70",
+  "imageAlt": "The Arabuko Sokoke coastal forest — Kenya's largest indigenous coastal forest.",
+  "published": true
+}

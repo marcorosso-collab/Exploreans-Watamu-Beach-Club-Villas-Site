@@ -1,0 +1,34 @@
+---
+import { getEntry } from 'astro:content';
+import RichText from './RichText.astro';
+
+const entry = await getEntry('sections', 'villas');
+const d = entry.data;
+if (d.type !== 'villas') throw new Error('Expected villas section');
+---
+<section class="villas" id="villas">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-tag">{d.chapterLabel}<span>{d.chapterSubtitle}</span></div>
+      <RichText text={d.headline} as="h2" />
+    </div>
+
+    <p class="lede" style="margin-bottom: 4rem;">{d.lede}</p>
+
+    <div class="villa-list">
+      {d.villas.map(v => (
+        <div class="villa">
+          <div class="villa-num">{v.number}</div>
+          <div class="villa-name">{v.name} <em>{v.nameEm}</em></div>
+          <div class="villa-desc">{v.description}</div>
+          <div class="villa-meta">
+            <strong>{v.capacity}</strong>
+            {v.meta}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="villa-note">{d.footnote}</p>
+  </div>
+</section>

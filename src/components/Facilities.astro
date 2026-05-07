@@ -1,0 +1,43 @@
+---
+import { getEntry } from 'astro:content';
+import RichText from './RichText.astro';
+import WavePattern from './WavePattern.astro';
+
+const entry = await getEntry('sections', 'facilities');
+const d = entry.data;
+if (d.type !== 'facilities') throw new Error('Expected facilities section');
+
+// SVG icon paths keyed by icon name
+const ICONS: Record<string, string> = {
+  pool: 'M4 32c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3M4 38c4 0 4-3 8-3s4 3 8 3 4-3 8-3 4 3 8 3 4-3 8-3M16 24V12a4 4 0 014-4M28 24V12a4 4 0 014-4',
+  beach: 'M6 38h36M10 38c0-8 6-14 14-14s14 6 14 14M24 24v-4M18 16l6 4 6-4M14 14l10 6 10-6',
+  restaurant: 'M16 8v18a4 4 0 008 0V8M20 8v40M32 8c-2 0-4 2-4 8s2 8 4 8v24M28 16h8',
+  wellness: 'M24 6c-6 6-10 12-10 18a10 10 0 0020 0c0-6-4-12-10-18zM18 42h12M22 42v-6M26 42v-6',
+  gardens: 'M24 6v36M14 14c4 0 7 4 10 8s7 8 10 8M14 26c4 0 7 4 10 8M34 14c-4 0-7 4-10 8M34 26c-4 0-7 4-10 8M8 42h32',
+  concierge: 'M24 6L8 14v12c0 9 7 17 16 20 9-3 16-11 16-20V14L24 6zM18 24l4 4 8-8'
+};
+---
+<section class="facilities" id="facilities">
+  <WavePattern onDark />
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-tag">{d.chapterLabel}<span>{d.chapterSubtitle}</span></div>
+      <RichText text={d.headline} as="h2" />
+    </div>
+    <p class="lede">{d.lede}</p>
+
+    <div class="fac-grid">
+      {d.facilities.map(f => (
+        <div class="fac-card">
+          <div class="fac-icon">
+            <svg viewBox="0 0 48 48"><path d={ICONS[f.icon]} /></svg>
+          </div>
+          <h3>{f.title} <em>{f.titleEm}</em></h3>
+          <p>{f.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="fac-footer-strip">{d.footerStrip}</p>
+  </div>
+</section>

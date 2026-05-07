@@ -1,0 +1,40 @@
+{
+  "type": "beach",
+  "chapterLabel": "Chapter VI",
+  "chapterSubtitle": "The private beach",
+  "headline": "A quiet bay *of crystalline water*, edged by palms.",
+  "lede": "Mayungu Beach is one of the most spectacular stretches of the Kenyan coast — shallow, crystal-clear water; soft white sand; and at low tide, ribbons of sandbank that emerge offshore in vivid contrast to the turquoise sea. The private beach club of Exploreans Watamu sits directly on this bay.",
+  "paragraphs": [
+    "The beach club is a 150-metre walk from the villas, through the property's tropical gardens. Guests have free use of the makuti-thatched gazebos and sunbeds, fresh-water showers, the beach restaurant, and the wellness pavilion.",
+    "The Watamu Marine National Park is a few minutes south. From the beach, a short paddle reaches the reef. Local guides arrange snorkelling, kayaking, dhow trips, and — at low tide — a walk out to the sandbanks that appear, briefly, in the open sea."
+  ],
+  "features": [
+    {
+      "title": "Makuti gazebos & sunbeds",
+      "description": "Traditional thatched shade, complimentary for resident guests; rentable for non-residents."
+    },
+    {
+      "title": "Beach à la carte restaurant",
+      "description": "A second on-property restaurant, directly on the sand under a thatched gazebo."
+    },
+    {
+      "title": "Beachside wellness",
+      "description": "A second massage room at the beach club. Booking recommended."
+    },
+    {
+      "title": "Fresh-water facilities",
+      "description": "Showers, changing rooms and toilets, kept simple and clean."
+    },
+    {
+      "title": "Direct reef access",
+      "description": "Snorkelling, kayaking and small-boat trips into the Watamu Marine Park."
+    },
+    {
+      "title": "Low-tide sandbanks",
+      "description": "White sand islands emerge offshore at low tide — walk out, swim back."
+    }
+  ],
+  "image": "https://exploreans.com/images/secluded-beach-club-experience-exploreans-malaika-kenya.jpg",
+  "imageAlt": "The private beach club at Exploreans Watamu — palms, makuti gazebos, and the open Indian Ocean.",
+  "backgroundImage": "https://exploreans.com/images/coastal-refreshments-exploreans-malaika-beach-club.jpg"
+}

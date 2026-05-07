@@ -1,0 +1,17 @@
+{
+  "type": "setting",
+  "chapterLabel": "Chapter II — The Setting",
+  "headline": "Where the *coral shelf* still holds.",
+  "paragraphs": [
+    "The Watamu Marine National Park is one of the oldest protected reserves in Africa — gazetted in 1968, and home to a coral reef that has, against the run of the times, kept its colour. The bay outside the property opens directly onto the marine reserve. Snorkel from the beach. Paddle to the dhows. There is no plan that beats the day itself.",
+    "Inland, the Arabuko Sokoke Forest — Kenya's largest surviving stretch of indigenous coastal forest — runs for some 400 square kilometres. Ten minutes south, the Gedi Ruins lie hushed under fig trees, the stone bones of a Swahili town abandoned in the seventeenth century. North, the rust-red badlands of Marafa cut through the coastal plain like an open wound."
+  ],
+  "stats": [
+    { "value": "1968", "label": "Marine park protected" },
+    { "value": "150m", "label": "Villas to beach club" },
+    { "value": "1km", "label": "From Mayungu village" },
+    { "value": "~600", "label": "Reef fish species" }
+  ],
+  "image": "https://exploreans.com/images/coastal-refreshments-exploreans-malaika-beach-club.jpg",
+  "imageAlt": "A quiet corner of the Watamu beach club — two cool drinks on weathered wood."
+}

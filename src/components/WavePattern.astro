@@ -1,0 +1,7 @@
+---
+interface Props {
+  onDark?: boolean;
+}
+const { onDark = false } = Astro.props;
+---
+<div class={onDark ? 'wave-pattern on-dark' : 'wave-pattern'}></div>

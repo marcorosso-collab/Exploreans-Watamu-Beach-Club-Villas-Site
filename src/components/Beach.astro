@@ -1,0 +1,37 @@
+---
+import { getEntry } from 'astro:content';
+import RichText from './RichText.astro';
+
+const entry = await getEntry('sections', 'beach');
+const d = entry.data;
+if (d.type !== 'beach') throw new Error('Expected beach section');
+---
+<section class="beach" id="beach" style={`--beach-bg: url('${d.backgroundImage}')`}>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-tag">{d.chapterLabel}<span>{d.chapterSubtitle}</span></div>
+      <RichText text={d.headline} as="h2" />
+    </div>
+
+    <p class="lede">{d.lede}</p>
+
+    <div class="beach-feature">
+      <div class="beach-text">
+        {d.paragraphs.map(p => <p>{p}</p>)}
+
+        <div class="beach-features-list">
+          {d.features.map(f => (
+            <div class="beach-feature-item">
+              <h4>{f.title}</h4>
+              <p>{f.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <figure class="beach-fig">
+        <img src={d.image} alt={d.imageAlt} />
+      </figure>
+    </div>
+  </div>
+</section>

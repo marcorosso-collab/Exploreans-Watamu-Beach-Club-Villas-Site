@@ -1,0 +1,123 @@
+---
+import { getEntry } from 'astro:content';
+import '../styles/global.css';
+
+const settings = await getEntry('site', 'settings');
+const s = settings.data;
+
+// Allow per-page override but default to site SEO
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+const {
+  title = s.seo.title,
+  description = s.seo.description,
+  ogImage = s.seo.ogImage,
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={s.seo.keywords} />
+<link rel="canonical" href={s.url + '/'} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={s.siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={s.url + '/'} />
+<meta property="og:image" content={ogImage} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Schema.org -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "@id": s.url + "/#hotel",
+  "name": s.siteName,
+  "alternateName": "Exploreans Watamu",
+  "description": s.seo.description,
+  "url": s.url + "/",
+  "telephone": s.contact.phone,
+  "email": s.contact.email,
+  "priceRange": "$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": s.contact.addressStreet,
+    "addressLocality": s.contact.addressCity,
+    "addressRegion": s.contact.addressRegion,
+    "addressCountry": s.contact.addressCountry
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": s.contact.lat,
+    "longitude": s.contact.lng
+  },
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Private Beach Club", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Swimming Pool", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Two Restaurants", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Wellness Pavilion", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "All-Inclusive Available", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Free Wi-Fi", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Airport Transfer", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Excursion Planning", "value": true }
+  ],
+  "brand": { "@type": "Brand", "name": "Exploreans Camps, Lodges & Retreats" },
+  "parentOrganization": { "@type": "Organization", "name": "Planhotel Hospitality Group", "address": "Lugano, Switzerland" }
+})} />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Sveltia CMS routes (Netlify Identity widget for git-gateway auth) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js" is:inline></script>
+</head>
+<body>
+  <slot />
+
+  <script is:inline>
+    // Sticky nav background
+    const nav = document.getElementById('nav');
+    if (nav) {
+      const onScroll = () => { if (window.scrollY > 60) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      const navToggle = document.getElementById('navToggle');
+      if (navToggle) {
+        navToggle.addEventListener('click', () => nav.classList.toggle('open'));
+        document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+      }
+    }
+
+    // Reveal-on-scroll
+    const els = document.querySelectorAll('section .section-header, section .letter-grid, section .setting-grid, section .villa, section .fac-card, section .dining-grid, section .beach-feature, section .exc-card, section .note, section .family-brands');
+    els.forEach(el => el.classList.add('reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    els.forEach(el => io.observe(el));
+
+    // Redirect /admin (without trailing slash) to /admin/ for Sveltia
+    if (window.location.pathname === '/admin') {
+      window.location.href = '/admin/';
+    }
+  </script>
+</body>
+</html>
