@@ -1,18 +1,24 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import WavePattern from './WavePattern.astro';
+
+const header = await getEntry('sections', 'excursions-header');
+const h = header.data;
 
 const all = await getCollection('excursions', ({ data }) => data.published);
 const items = all.sort((a, b) => a.data.order - b.data.order);
+
+// Replace headlineEm phrase with <em>headlineEm</em> in headline
+const headlineParts = h.headline.split(h.headlineEm);
 ---
 <section class="excursions" id="excursions">
   <WavePattern />
   <div class="container">
     <div class="section-header">
-      <div class="section-header-tag">Chapter VII<span>Beyond the gate</span></div>
-      <h2>The coast, the forest, the <em>old stones</em>.</h2>
+      <div class="section-header-tag">{h.chapterLabel}<span>{h.chapterSubtitle}</span></div>
+      <h2>{headlineParts[0]}<em>{h.headlineEm}</em>{headlineParts.slice(1).join(h.headlineEm)}</h2>
     </div>
-    <p class="lede">Most of the best of the Watamu coast is within an easy day. Some things — Tsavo East, Marafa — are worth the longer drive. Our concierge team handles transfers, tour guides, and full excursion planning.</p>
+    <p class="lede">{h.lede}</p>
 
     <div class="exc-grid">
       {items.map(({ data: e }) => (
@@ -30,6 +36,6 @@ const items = all.sort((a, b) => a.data.order - b.data.order);
       ))}
     </div>
 
-    <p class="exc-cta">Our team plans transfers, guides and full itineraries. Tell us what you'd like to see.</p>
+    <p class="exc-cta">{h.ctaText}</p>
   </div>
 </section>

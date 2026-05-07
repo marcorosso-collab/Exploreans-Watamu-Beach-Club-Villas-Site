@@ -6,7 +6,7 @@ const entry = await getEntry('sections', 'beach');
 const d = entry.data;
 if (d.type !== 'beach') throw new Error('Expected beach section');
 ---
-<section class="beach" id="beach" style={`--beach-bg: url('${d.backgroundImage}')`}>
+<section class="beach" id="beach" style={`--beach-bg: url('${d.backgroundImage}')`} role="img" aria-label={d.backgroundImageAlt}>
   <div class="container">
     <div class="section-header">
       <div class="section-header-tag">{d.chapterLabel}<span>{d.chapterSubtitle}</span></div>

@@ -1,14 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+
+const header = await getEntry('sections', 'notes-header');
+const h = header.data;
 
 const all = await getCollection('notes', ({ data }) => data.published);
 const items = all.sort((a, b) => a.data.order - b.data.order);
+
+// Replace headlineEm phrase with <em>headlineEm</em> in headline
+const headlineParts = h.headline.split(h.headlineEm);
 ---
 <section class="notes" id="notes">
   <div class="container">
     <div class="section-header">
-      <div class="section-header-tag">Field Notes<span>Dispatches from the property</span></div>
-      <h2>What we've been <em>noticing</em>.</h2>
+      <div class="section-header-tag">{h.sectionLabel}<span>{h.sectionSubtitle}</span></div>
+      <h2>{headlineParts[0]}<em>{h.headlineEm}</em>{headlineParts.slice(1).join(h.headlineEm)}</h2>
     </div>
 
     <div class="notes-grid">

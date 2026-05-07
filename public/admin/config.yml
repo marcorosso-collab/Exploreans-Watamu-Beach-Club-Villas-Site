@@ -95,6 +95,7 @@ collections:
           - { name: headlineEm, label: "Phrase from headline to italicise", widget: string }
           - { name: tagline, label: "Tagline (italic, below headline)", widget: string }
           - { name: image, label: "Background image", widget: image }
+          - { name: imageAlt, label: "Hero image alt text (for accessibility)", widget: string }
           - name: meta
             label: "Hero meta items (3 max recommended)"
             widget: list
@@ -229,8 +230,9 @@ collections:
               - { name: title, label: "Title", widget: string }
               - { name: description, label: "Description", widget: text }
           - { name: image, label: "Foreground image", widget: image }
-          - { name: imageAlt, label: "Image alt text", widget: string }
+          - { name: imageAlt, label: "Foreground image alt text", widget: string }
           - { name: backgroundImage, label: "Parallax background image", widget: image }
+          - { name: backgroundImageAlt, label: "Background image alt text", widget: string }
 
       - name: "family"
         label: "Family / Planhotel"
@@ -250,6 +252,30 @@ collections:
               - { name: tagline, label: "Tagline", widget: string }
               - { name: description, label: "Description", widget: text }
               - { name: url, label: "URL", widget: string }
+
+      - name: "excursionsHeader"
+        label: "Chapter VII — Excursions Header"
+        file: "src/content/sections/excursions-header.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "excursions-header" }
+          - { name: chapterLabel, label: "Chapter label", widget: string, default: "Chapter VII" }
+          - { name: chapterSubtitle, label: "Chapter subtitle", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
+          - { name: headlineEm, label: "Italicised phrase", widget: string }
+          - { name: lede, label: "Intro paragraph", widget: text }
+          - { name: ctaText, label: "CTA text (bottom of section)", widget: text }
+
+      - name: "notesHeader"
+        label: "Field Notes Header"
+        file: "src/content/sections/notes-header.json"
+        format: "json"
+        fields:
+          - { name: type, widget: hidden, default: "notes-header" }
+          - { name: sectionLabel, label: "Section label", widget: string }
+          - { name: sectionSubtitle, label: "Section subtitle", widget: string }
+          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
+          - { name: headlineEm, label: "Italicised phrase", widget: string }
 
   # ----------------------------------------------------------
   # 3. EXCURSIONS (folder collection — one file per excursion)

@@ -46,6 +46,7 @@ const sections = defineCollection({
       headlineEm: z.string(),
       tagline: z.string(),
       image: z.string(),
+      imageAlt: z.string().optional(),
       meta: z.array(z.object({
         label: z.string(),
         value: z.string()
@@ -144,7 +145,26 @@ const sections = defineCollection({
       })),
       image: z.string(),
       imageAlt: z.string(),
-      backgroundImage: z.string()
+      backgroundImage: z.string(),
+      backgroundImageAlt: z.string().optional()
+    }),
+    // Excursions Header
+    z.object({
+      type: z.literal('excursions-header'),
+      chapterLabel: z.string(),
+      chapterSubtitle: z.string(),
+      headline: z.string(),
+      headlineEm: z.string(),
+      lede: z.string(),
+      ctaText: z.string()
+    }),
+    // Notes Header
+    z.object({
+      type: z.literal('notes-header'),
+      sectionLabel: z.string(),
+      sectionSubtitle: z.string(),
+      headline: z.string(),
+      headlineEm: z.string()
     }),
     // Family
     z.object({

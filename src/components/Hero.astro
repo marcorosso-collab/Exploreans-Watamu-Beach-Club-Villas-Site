@@ -7,7 +7,7 @@ if (d.type !== 'hero') throw new Error('Expected hero section');
 // Replace headlineEm phrase with <em>headlineEm</em> in headline
 const headlineParts = d.headline.split(d.headlineEm);
 ---
-<header class="hero" style={`--hero-image: url('${d.image}')`}>
+<header class="hero" style={`--hero-image: url('${d.image}')`} role="img" aria-label={d.imageAlt}>
   <div class="container">
     <div class="hero-volume">{d.eyebrow}</div>
     <h1>
