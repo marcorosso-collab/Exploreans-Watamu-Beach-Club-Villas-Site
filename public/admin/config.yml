@@ -11,8 +11,10 @@
 # ============================================================
 
 backend:
-  name: git-gateway
+  name: github
+  repo: marcorosso-collab/Exploreans-Watamu-Beach-Club-Villas-Site
   branch: main
+  base_url: https://watamu.exploreans.com
 
 # Where Sveltia uploads media (referenced from Astro as /images/...)
 media_folder: "public/images"
