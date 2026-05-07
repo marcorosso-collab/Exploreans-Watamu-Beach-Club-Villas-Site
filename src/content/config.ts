@@ -191,7 +191,8 @@ const sections = defineCollection({
         name: z.string(),
         tagline: z.string(),
         description: z.string(),
-        url: z.string()
+        url: z.string(),
+        logo: z.string().optional()
       }))
     })
   ])
