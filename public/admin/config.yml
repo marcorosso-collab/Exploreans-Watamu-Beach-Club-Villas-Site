@@ -270,6 +270,7 @@ collections:
               - { name: tagline, label: "Tagline", widget: string }
               - { name: description, label: "Description", widget: text }
               - { name: url, label: "URL", widget: string }
+              - { name: logo, label: "Brand logo", widget: image, hint: "Upload a transparent PNG (white/light version for dark backgrounds)" }
 
       - name: "excursionsHeader"
         label: "Chapter VII — Excursions Header"
