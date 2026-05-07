@@ -4,11 +4,20 @@
   "headline": "Watamu Beach Club & Villas.",
   "headlineEm": "Beach Club",
   "tagline": "Preserved, not produced.",
-  "image": "/images/hero-bg.jpg",
+  "image": "/images/exploreans-watamu-kenya-aerial-coastline.jpg",
   "imageAlt": "Aerial view of Exploreans Watamu Beach Club & Villas on Mayungu Bay, Kenya",
   "meta": [
-    { "label": "The Property", "value": "17 villas" },
-    { "label": "The Bay", "value": "Mayungu, Watamu" },
-    { "label": "The Coast", "value": "Marine National Park" }
+    {
+      "label": "The Property",
+      "value": "17 villas"
+    },
+    {
+      "label": "The Bay",
+      "value": "Mayungu, Watamu"
+    },
+    {
+      "label": "The Coast",
+      "value": "Marine National Park"
+    }
   ]
 }
