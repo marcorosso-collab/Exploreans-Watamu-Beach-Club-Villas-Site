@@ -4,11 +4,14 @@ const settings = await getEntry('site', 'settings');
 const s = settings.data;
 const nav = s.nav;
 ---
-<nav class="nav" id="nav" aria-label="Main navigation">
+<nav class="nav at-top" id="nav" aria-label="Main navigation">
   <div class="container nav-inner">
     <a href="/" class="nav-brand" title={nav.logoAlt}>
       {nav.logoImage ? (
-        <img src={nav.logoImage} alt={nav.logoAlt} class="nav-logo-img" />
+        <>
+          <img src={nav.logoImage} alt={nav.logoAlt} class="nav-logo-img nav-logo--default" />
+          <img src={nav.logoImage} alt={nav.logoAlt} class="nav-logo-img nav-logo--white" />
+        </>
       ) : (
         <>
           {nav.logoText}

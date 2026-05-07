@@ -92,10 +92,18 @@ const {
   <slot />
 
   <script is:inline>
-    // Sticky nav background
+    // Sticky nav background + logo color switch
     const nav = document.getElementById('nav');
     if (nav) {
-      const onScroll = () => { if (window.scrollY > 60) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); };
+      const onScroll = () => {
+        if (window.scrollY > 0) {
+          nav.classList.add('scrolled');
+          nav.classList.remove('at-top');
+        } else {
+          nav.classList.remove('scrolled');
+          nav.classList.add('at-top');
+        }
+      };
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
 

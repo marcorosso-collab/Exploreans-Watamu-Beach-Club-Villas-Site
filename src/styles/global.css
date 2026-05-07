@@ -79,7 +79,12 @@ section { padding: clamp(5rem, 10vw, 9rem) 0; position: relative; }
 .nav-brand { font-family: var(--serif-display); font-size: 1.1rem; color: var(--paper); letter-spacing: 0.04em; transition: color .35s ease; flex-shrink: 0; display: flex; align-items: center; }
 .nav.scrolled .nav-brand { color: var(--moss); }
 .nav-brand small { display: block; font-family: var(--sans-fn); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.7; margin-top: 2px; }
-.nav-logo-img { height: 40px; width: auto; max-width: 160px; object-fit: contain; display: block; }
+.nav-logo-img { height: 72px; width: auto; max-width: 220px; object-fit: contain; display: block; transition: opacity 0.3s ease; }
+.nav-logo--default { opacity: 0; }
+.nav-logo--white { position: absolute; top: 0; left: 0; opacity: 1; filter: brightness(0) invert(1); }
+.nav.scrolled .nav-logo--default { opacity: 1; }
+.nav.scrolled .nav-logo--white { opacity: 0; }
+.nav-brand { position: relative; display: flex; align-items: center; }
 .nav-links { display: flex; gap: 1.85rem; align-items: center; list-style: none; }
 .nav-links a { font-family: var(--sans-fn); font-size: 0.74rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--paper); transition: color .35s ease, opacity .25s ease; opacity: 0.92; }
 .nav.scrolled .nav-links a { color: var(--moss); }
