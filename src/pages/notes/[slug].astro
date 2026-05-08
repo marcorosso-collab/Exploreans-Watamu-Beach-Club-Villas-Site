@@ -17,6 +17,7 @@ const { Content } = await post.render();
 // Get site settings for structured data
 const siteEntry = await getEntry('site', 'settings');
 const site = siteEntry?.data;
+const s = site;
 
 // Get related posts
 const relatedPosts = [];
@@ -152,48 +153,83 @@ const formatDate = (dateStr: string) => {
     {/* Article Body */}
     <div class="post-body">
       <div class="container">
-        <div class="post-content">
-          {/* Render MDX content */}
-          <Content />
+        {/* Main Content Column */}
+        <div class="post-main">
+          <div class="post-content">
+            {/* Render MDX content */}
+            <Content />
+          </div>
+
+          {/* Author / Footer */}
+          <footer class="post-footer">
+            <div class="post-author">
+              <span>By {p.author}</span>
+            </div>
+          </footer>
         </div>
 
-        {/* Author / Footer */}
-        <footer class="post-footer">
-          <div class="post-author">
-            <span>By {p.author}</span>
+        {/* Sidebar */}
+        <aside class="post-sidebar" aria-label="Article sidebar">
+          {/* Share */}
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">Share</h3>
+            <div class="sidebar-share">
+              <a 
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(p.title)}&url=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Share on Twitter"
+              >
+                Twitter
+              </a>
+              <a 
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Share on Facebook"
+              >
+                Facebook
+              </a>
+              <a 
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Share on LinkedIn"
+              >
+                LinkedIn
+              </a>
+            </div>
           </div>
-          
-          {/* Share buttons */}
-          <div class="post-share">
-            <span>Share:</span>
-            <a 
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(p.title)}&url=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Share on Twitter"
-            >
-              Twitter
-            </a>
-            <a 
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Share on Facebook"
-            >
-              Facebook
-            </a>
-            <a 
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Share on LinkedIn"
-            >
-              LinkedIn
-            </a>
-          </div>
-        </footer>
 
-        {/* Related Posts */}
+          {/* Tags */}
+          {p.tags && p.tags.length > 0 && (
+            <div class="sidebar-section">
+              <h3 class="sidebar-title">Tags</h3>
+              <div class="sidebar-tags">
+                {p.tags.map(tag => (
+                  <span class="sidebar-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Related Posts */}
+          {relatedPosts.length > 0 && (
+            <div class="sidebar-section">
+              <h3 class="sidebar-title">Related</h3>
+              <div class="sidebar-related">
+                {relatedPosts.map(related => (
+                  <a href={`/notes/${related.slug}`}>
+                    <h4>{related.data.title}{related.data.titleEm && <em> {related.data.titleEm}</em>}</h4>
+                    <p>{related.data.excerpt.substring(0, 80)}...</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </aside>
+
+        {/* Related Posts — Full width below */}
         {relatedPosts.length > 0 && (
           <aside class="post-related" aria-label="Related articles">
             <h2>Related Field Notes</h2>
@@ -211,15 +247,35 @@ const formatDate = (dateStr: string) => {
       </div>
     </div>
   </article>
+
+  {/* Site Footer */}
+  <footer class="post-site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-logo">Exploreans</span>
+          <span class="footer-tagline">Watamu Beach Club & Villas</span>
+        </div>
+        <nav class="footer-nav">
+          <a href="/">Home</a>
+          <a href="/notes">Field Notes</a>
+          <a href={s?.booking?.url || '#'} target="_blank" rel="noopener">Book Now</a>
+        </nav>
+        <p class="footer-credit">A Planhotel Hospitality Group property</p>
+      </div>
+    </div>
+  </footer>
 </Base>
 
 <style>
-  /* Post Article Layout */
+  /* Post Article Layout — Full width with generous reading column */
   .post-article {
-    --post-max-width: 780px;
+    --content-width: 720px;
+    --sidebar-width: 280px;
+    --gap: 4rem;
   }
 
-  /* Hero */
+  /* Hero — Full bleed with overlay */
   .post-hero {
     position: relative;
     background: var(--moss);
@@ -229,35 +285,49 @@ const formatDate = (dateStr: string) => {
   .post-hero-image {
     position: relative;
     width: 100%;
-    height: 60vh;
-    min-height: 400px;
-    max-height: 700px;
+    height: 70vh;
+    min-height: 500px;
+    max-height: 800px;
     overflow: hidden;
+  }
+
+  .post-hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(26, 46, 32, 0.2) 0%,
+      rgba(26, 46, 32, 0.1) 40%,
+      rgba(26, 46, 32, 0.85) 100%
+    );
   }
 
   .post-hero-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.7;
   }
 
   .post-hero-image figcaption {
     position: absolute;
-    bottom: 1rem;
-    right: 1.5rem;
-    font-size: 0.75rem;
+    bottom: 1.5rem;
+    right: 2rem;
+    font-size: 0.8rem;
     font-style: italic;
-    opacity: 0.7;
     color: var(--paper);
+    opacity: 0.8;
+    z-index: 2;
   }
 
   .post-hero-content {
-    padding: 3rem 0 4rem;
+    padding: 3rem 0 5rem;
   }
 
   .post-hero-content .container {
-    max-width: var(--post-max-width);
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 2rem;
   }
 
   /* Breadcrumb */
@@ -266,29 +336,32 @@ const formatDate = (dateStr: string) => {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     opacity: 0.7;
   }
 
   .post-breadcrumb a {
     color: var(--ochre);
+    transition: opacity 0.2s;
   }
 
   .post-breadcrumb a:hover {
+    opacity: 1;
     color: var(--paper);
   }
 
   .post-breadcrumb span {
     margin: 0 0.5rem;
+    opacity: 0.5;
   }
 
   /* Meta */
   .post-meta {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     font-family: var(--sans-fn);
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -298,44 +371,50 @@ const formatDate = (dateStr: string) => {
   .post-category {
     color: var(--ochre);
     font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--ochre);
+    opacity: 0.9;
   }
 
   .post-updated {
-    opacity: 0.7;
+    opacity: 0.6;
   }
 
   /* Title */
   .post-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    line-height: 1.1;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.05;
     color: var(--paper);
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    font-weight: 400;
   }
 
   .post-title em {
     color: var(--ochre);
+    font-style: italic;
   }
 
   .post-subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
     font-style: italic;
     color: var(--ochre);
-    margin-bottom: 1.5rem;
-    max-width: 60ch;
+    margin-bottom: 1.75rem;
+    line-height: 1.4;
+    opacity: 0.95;
   }
 
   .post-excerpt {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    opacity: 0.9;
-    max-width: 60ch;
-    margin-bottom: 1.5rem;
+    font-size: 1.15rem;
+    line-height: 1.65;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+    max-width: 55ch;
   }
 
   /* Tags */
   .post-tags {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.6rem;
     flex-wrap: wrap;
   }
 
@@ -344,54 +423,102 @@ const formatDate = (dateStr: string) => {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    padding: 0.35rem 0.8rem;
-    border: 1px solid rgba(250, 250, 245, 0.3);
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(250, 250, 245, 0.25);
     color: var(--paper);
-    opacity: 0.8;
+    opacity: 0.75;
+    transition: all 0.2s;
   }
 
-  /* Body */
+  .post-tag:hover {
+    opacity: 1;
+    border-color: rgba(250, 250, 245, 0.5);
+  }
+
+  /* Body — Two column layout on desktop */
   .post-body {
-    padding: 4rem 0 6rem;
+    padding: 5rem 0 8rem;
     background: var(--paper);
   }
 
   .post-body .container {
-    max-width: var(--post-max-width);
+    max-width: calc(var(--content-width) + var(--sidebar-width) + var(--gap));
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr var(--sidebar-width);
+    gap: var(--gap);
+    align-items: start;
   }
 
   .post-content {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     line-height: 1.8;
+    color: var(--shadow);
   }
 
   .post-content h2 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    margin: 3rem 0 1.5rem;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin: 3.5rem 0 1.25rem;
     color: var(--moss);
+    line-height: 1.2;
+    font-weight: 500;
   }
 
   .post-content h2:first-child {
     margin-top: 0;
   }
 
+  .post-content h3 {
+    font-size: 1.35rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--moss);
+    font-weight: 500;
+  }
+
   .post-content p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
     color: var(--shadow);
+  }
+
+  .post-content p:first-of-type::first-letter {
+    font-family: var(--serif-display);
+    font-size: 4.2rem;
+    line-height: 0.85;
+    float: left;
+    color: var(--forest);
+    margin: 0.25rem 0.5rem 0 0;
+    font-weight: 400;
   }
 
   .post-content blockquote {
     margin: 2.5rem 0;
-    padding: 1.5rem 2rem;
-    border-left: 3px solid var(--forest);
+    padding: 2rem 2.5rem;
+    border-left: 4px solid var(--forest);
     background: var(--leaf);
     font-style: italic;
+    position: relative;
+  }
+
+  .post-content blockquote::before {
+    content: '"';
+    font-family: var(--serif-display);
+    font-size: 4rem;
+    color: var(--sage);
+    opacity: 0.3;
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    line-height: 1;
   }
 
   .post-content blockquote p {
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
     color: var(--moss);
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
   }
 
   .post-content blockquote cite {
@@ -401,16 +528,42 @@ const formatDate = (dateStr: string) => {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--sage);
+    display: block;
+    margin-top: 0.5rem;
   }
 
-  .post-content ul {
-    margin: 1.5rem 0;
-    padding-left: 1.5rem;
+  .post-content ul,
+  .post-content ol {
+    margin: 1.5rem 0 2rem;
+    padding-left: 1.75rem;
   }
 
   .post-content li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     color: var(--shadow);
+    line-height: 1.6;
+  }
+
+  .post-content strong {
+    color: var(--moss);
+    font-weight: 600;
+  }
+
+  .post-content em {
+    color: var(--forest);
+  }
+
+  .post-content a {
+    color: var(--forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--sage);
+    transition: all 0.2s;
+  }
+
+  .post-content a:hover {
+    color: var(--moss);
+    text-decoration-color: var(--moss);
   }
 
   .post-figure {
@@ -423,72 +576,162 @@ const formatDate = (dateStr: string) => {
   }
 
   .post-figure figcaption {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-style: italic;
     color: var(--sage);
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+
+  /* Sidebar */
+  .post-sidebar {
+    position: sticky;
+    top: 120px;
+    padding-top: 0.5rem;
+  }
+
+  .sidebar-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .sidebar-section:last-child {
+    border-bottom: none;
+  }
+
+  .sidebar-title {
+    font-family: var(--sans-fn);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 1rem;
+  }
+
+  .sidebar-share {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .sidebar-share a {
+    font-family: var(--sans-fn);
+    font-size: 0.8rem;
+    color: var(--shadow);
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--rule);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sidebar-share a:hover {
+    background: var(--leaf);
+    color: var(--moss);
+    border-color: var(--sage);
+  }
+
+  .sidebar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .sidebar-tag {
+    font-family: var(--sans-fn);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.7rem;
+    background: var(--leaf);
+    color: var(--shadow);
+    transition: all 0.2s;
+  }
+
+  .sidebar-tag:hover {
+    background: var(--forest);
+    color: var(--paper);
+  }
+
+  .sidebar-related {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .sidebar-related a {
+    display: block;
+    text-decoration: none;
+  }
+
+  .sidebar-related a:hover h4 {
+    color: var(--forest);
+  }
+
+  .sidebar-related h4 {
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--moss);
+    margin-bottom: 0.25rem;
+    transition: color 0.2s;
+  }
+
+  .sidebar-related p {
+    font-size: 0.85rem;
+    color: var(--sage);
+    line-height: 1.4;
   }
 
   /* Footer */
   .post-footer {
-    margin-top: 4rem;
-    padding-top: 2rem;
+    margin-top: 5rem;
+    padding-top: 2.5rem;
     border-top: 1px solid var(--rule);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .post-author {
     font-family: var(--sans-fn);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--sage);
   }
 
-  .post-share {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    font-family: var(--sans-fn);
-    font-size: 0.75rem;
-  }
-
-  .post-share a {
-    color: var(--forest);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .post-share a:hover {
-    color: var(--moss);
-  }
-
-  /* Related Posts */
+  /* Related Posts — Full width below content */
   .post-related {
-    margin-top: 4rem;
+    margin-top: 5rem;
     padding-top: 3rem;
     border-top: 1px solid var(--rule);
+    grid-column: 1 / -1;
   }
 
   .post-related h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
     color: var(--moss);
   }
 
   .related-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
 
   .related-card {
     display: block;
     text-decoration: none;
+    transition: transform 0.3s;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
   }
 
   .related-card img {
@@ -503,14 +746,16 @@ const formatDate = (dateStr: string) => {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
     color: var(--moss);
+    line-height: 1.25;
   }
 
   .related-card h3 em {
     color: var(--forest);
+    font-style: italic;
   }
 
   .related-card p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--shadow);
     line-height: 1.5;
   }
@@ -519,24 +764,139 @@ const formatDate = (dateStr: string) => {
     color: var(--forest);
   }
 
+  /* Site Footer */
+  .post-site-footer {
+    background: var(--moss);
+    color: var(--paper);
+    padding: 3rem 0;
+    margin-top: 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .footer-logo {
+    font-family: var(--serif-display);
+    font-size: 1.3rem;
+    color: var(--paper);
+  }
+
+  .footer-tagline {
+    font-family: var(--sans-fn);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.7;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-nav a {
+    font-family: var(--sans-fn);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ochre);
+    transition: color 0.2s;
+  }
+
+  .footer-nav a:hover {
+    color: var(--paper);
+  }
+
+  .footer-credit {
+    font-family: var(--sans-fn);
+    font-size: 0.7rem;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
   /* Responsive */
+  @media (max-width: 1024px) {
+    .post-body .container {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .post-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .sidebar-section {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .related-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 768px) {
     .post-hero-image {
-      height: 40vh;
-      min-height: 250px;
+      height: 50vh;
+      min-height: 300px;
     }
 
     .post-hero-content {
       padding: 2rem 0 3rem;
     }
 
+    .post-hero-content .container {
+      padding: 0 1.5rem;
+    }
+
     .post-body {
-      padding: 2.5rem 0 4rem;
+      padding: 3rem 0 5rem;
+    }
+
+    .post-body .container {
+      padding: 0 1.5rem;
+    }
+
+    .post-content {
+      font-size: 1.05rem;
+    }
+
+    .post-content p:first-of-type::first-letter {
+      font-size: 3.5rem;
     }
 
     .post-footer {
       flex-direction: column;
       align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-nav {
+      gap: 1.5rem;
     }
   }
 </style>
