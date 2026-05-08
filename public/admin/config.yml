@@ -280,8 +280,8 @@ collections:
           - { name: type, widget: hidden, default: "excursions-header" }
           - { name: chapterLabel, label: "Chapter label", widget: string, default: "Chapter VII" }
           - { name: chapterSubtitle, label: "Chapter subtitle", widget: string }
-          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
-          - { name: headlineEm, label: "Italicised phrase", widget: string }
+          - { name: headline, label: "Headline (plain text, no asterisks)", widget: string, hint: "Write the full headline here. Do NOT use asterisks. The italicised part goes in the field below." }
+          - { name: headlineEm, label: "Italicised phrase", widget: string, hint: "Just the words to italicise (no asterisks). Must match exactly what's in the headline above." }
           - { name: lede, label: "Intro paragraph", widget: text }
           - { name: ctaText, label: "CTA text (bottom of section)", widget: text }
 
@@ -293,8 +293,8 @@ collections:
           - { name: type, widget: hidden, default: "notes-header" }
           - { name: sectionLabel, label: "Section label", widget: string }
           - { name: sectionSubtitle, label: "Section subtitle", widget: string }
-          - { name: headline, label: "Headline (use *word* for italics)", widget: string }
-          - { name: headlineEm, label: "Italicised phrase", widget: string }
+          - { name: headline, label: "Headline (plain text, no asterisks)", widget: string, hint: "Write the full headline here. Do NOT use asterisks. The italicised part goes in the field below." }
+          - { name: headlineEm, label: "Italicised phrase", widget: string, hint: "Just the words to italicise (no asterisks). Must match exactly what's in the headline above." }
 
   # ----------------------------------------------------------
   # 3. EXCURSIONS (folder collection — one file per excursion)
