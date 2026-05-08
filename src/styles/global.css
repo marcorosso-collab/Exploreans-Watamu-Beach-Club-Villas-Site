@@ -328,8 +328,8 @@ footer a:hover { color: var(--paper); }
   .setting-grid { grid-template-columns: 1fr; }
   .fac-grid { grid-template-columns: 1fr; }
   .dining-grid, .dining-grid.reverse { grid-template-columns: 1fr; }
-  .dining-grid.reverse .dining-text { order: 2; }
-  .dining-grid.reverse .dining-fig { order: 1; }
+  .dining-grid .dining-text, .dining-grid.reverse .dining-text { order: 1; }
+  .dining-grid .dining-fig, .dining-grid.reverse .dining-fig { order: 2; }
   .beach-feature { grid-template-columns: 1fr; }
   .beach-features-list { grid-template-columns: 1fr; }
   .exc-grid { grid-template-columns: 1fr; }
