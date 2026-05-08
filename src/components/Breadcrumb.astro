@@ -1,0 +1,99 @@
+---
+// Breadcrumb navigation with Schema.org structured data
+// Only shows on non-home pages
+
+const { pathname } = Astro.url;
+const isHome = pathname === '/';
+
+// Define breadcrumb paths
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Journal', url: '/notes/' }
+];
+
+// Determine current page
+let currentBreadcrumbs = [breadcrumbs[0]];
+
+if (pathname.startsWith('/notes/') && pathname !== '/notes/') {
+  // Individual blog post
+  currentBreadcrumbs = breadcrumbs;
+} else if (pathname === '/notes/') {
+  // Journal listing page
+  currentBreadcrumbs = breadcrumbs;
+}
+
+// Schema.org breadcrumb structured data
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": currentBreadcrumbs.map((crumb, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": crumb.label,
+    "item": `https://watamu.exploreans.com${crumb.url}`
+  }))
+};
+---
+
+{!isHome && (
+  <>
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <ol class="breadcrumb-list">
+        {currentBreadcrumbs.map((crumb, index) => (
+          <li class="breadcrumb-item">
+            {index < currentBreadcrumbs.length - 1 ? (
+              <a href={crumb.url} class="breadcrumb-link">{crumb.label}</a>
+            ) : (
+              <span class="breadcrumb-current" aria-current="page">{crumb.label}</span>
+            )}
+            {index < currentBreadcrumbs.length - 1 && (
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </>
+)}
+
+<style>
+  .breadcrumb {
+    padding: 1rem 0;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #666);
+  }
+  
+  .breadcrumb-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .breadcrumb-link {
+    color: var(--color-primary, #1a5276);
+    text-decoration: none;
+  }
+  
+  .breadcrumb-link:hover {
+    text-decoration: underline;
+  }
+  
+  .breadcrumb-separator {
+    color: var(--color-text-muted, #999);
+  }
+  
+  .breadcrumb-current {
+    color: var(--color-text, #333);
+    font-weight: 500;
+  }
+</style>

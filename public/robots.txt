@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://watamu.exploreans.com/sitemap-index.xml
+Sitemap: https://watamu.exploreans.com/sitemap.xml

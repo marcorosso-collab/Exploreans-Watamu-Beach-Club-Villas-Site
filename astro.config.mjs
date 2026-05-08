@@ -7,5 +7,7 @@ export default defineConfig({
   build: {
     format: 'directory'
   },
-  integrations: [mdx()]
+  integrations: [
+    mdx()
+  ]
 });

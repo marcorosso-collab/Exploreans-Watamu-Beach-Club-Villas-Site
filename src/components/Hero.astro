@@ -11,7 +11,13 @@ const headlineParts = d.headline.split(d.headlineEm);
   <div class="container">
     <div class="hero-volume">{d.eyebrow}</div>
     <h1>
-      {headlineParts[0]}<em>{d.headlineEm}</em>{headlineParts.slice(1).join(d.headlineEm)}
+      {d.headlineEm ? (
+        <>
+          {headlineParts[0]}<em>{d.headlineEm}</em>{headlineParts.slice(1).join(d.headlineEm)}
+        </>
+      ) : (
+        d.headline
+      )}
     </h1>
     <p class="hero-tagline">{d.tagline}</p>
     <div class="hero-meta">

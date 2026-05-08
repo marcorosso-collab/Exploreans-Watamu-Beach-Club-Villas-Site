@@ -19,7 +19,7 @@
     "logoImage": "/images/exploreans_beach_club_villas_watamu_logo.png",
     "logoAlt": "Exploreans Watamu Beach Club & Villas logo",
     "ctaLabel": "Boon Now",
-    "ctaUrl": "https://www.simplebooking.it/ibe2/hotel/10256?lang=EN&cur=USD",
+    "ctaUrl": "https://www.simplebooking.it/ibe2/hotel/10256?lang=EN&cur=USD&utm_source=exploreans-watamu&utm_medium=website&utm_campaign=nav-booking",
     "ctaTarget": "_blank",
     "links": [
       {
@@ -60,7 +60,7 @@
     ]
   },
   "booking": {
-    "url": "https://www.simplebooking.it/ibe2/hotel/10256?lang=EN&cur=USD"
+    "url": "https://www.simplebooking.it/ibe2/hotel/10256?lang=EN&cur=USD&utm_source=exploreans-watamu&utm_medium=website&utm_campaign=booking-engine"
   },
   "seo": {
     "title": "Exploreans Watamu Beach Club & Villas | Boutique Hotel on Kenya's Watamu Coast",
