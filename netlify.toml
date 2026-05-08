@@ -5,6 +5,11 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Custom domain configuration
+# Primary domain: watamu.exploreans.com
+# Netlify subdomain: exploreanswatamu.netlify.app
+# Both will redirect to https://watamu.exploreans.com
+
 # Sveltia CMS uses Netlify Identity + git-gateway by default
 # Once deployed, enable Identity in the Netlify dashboard, then enable git-gateway
 # under Identity → Services → Git Gateway
