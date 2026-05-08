@@ -27,6 +27,19 @@
     X-Frame-Options = "SAMEORIGIN"
     Cache-Control = "no-cache, no-store, must-revalidate"
 
+# Sitemap and robots.txt must be served as static files
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+  force = true
+
 # Pretty URL fallback for Astro
 [[redirects]]
   from = "/*"
