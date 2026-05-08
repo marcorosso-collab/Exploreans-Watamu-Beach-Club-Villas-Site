@@ -92,6 +92,7 @@ collections:
               - { name: description, label: "Meta description", widget: text }
               - { name: keywords, label: "Meta keywords (comma-separated)", widget: text }
               - { name: ogImage, label: "OG image URL", widget: string }
+              - { name: favicon, label: "Favicon", widget: image, required: false, hint: "Upload a .png or .svg favicon (32x32 or larger). Will be used as browser tab icon." }
 
   # ----------------------------------------------------------
   # 2. PAGE SECTIONS (singletons — one file per section)

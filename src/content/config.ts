@@ -41,7 +41,8 @@ const site = defineCollection({
       title: z.string(),
       description: z.string(),
       keywords: z.string(),
-      ogImage: z.string()
+      ogImage: z.string(),
+      favicon: z.string().optional()
     })
   })
 });

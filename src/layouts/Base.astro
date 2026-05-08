@@ -30,6 +30,10 @@ const {
 <meta name="keywords" content={s.seo.keywords} />
 <link rel="canonical" href={canonicalUrl} />
 
+<!-- Favicon -->
+<link rel="icon" type="image/png" href={s.seo.favicon || '/favicon.svg'} />
+<link rel="apple-touch-icon" href={s.seo.favicon || '/favicon.svg'} />
+
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content={s.siteName} />
