@@ -7,11 +7,23 @@
     "Inland, the Arabuko Sokoke Forest — Kenya's largest surviving stretch of indigenous coastal forest — runs for some 400 square kilometres. Ten minutes south, the Gedi Ruins lie hushed under fig trees, the stone bones of a Swahili town abandoned in the seventeenth century. North, the rust-red badlands of Marafa cut through the coastal plain like an open wound."
   ],
   "stats": [
-    { "value": "1968", "label": "Marine park protected" },
-    { "value": "150m", "label": "Villas to beach club" },
-    { "value": "1km", "label": "From Mayungu village" },
-    { "value": "~600", "label": "Reef fish species" }
+    {
+      "value": "1968",
+      "label": "Marine park protected"
+    },
+    {
+      "value": "150 m",
+      "label": "From the shore"
+    },
+    {
+      "value": "1 km",
+      "label": "From Mayungu village"
+    },
+    {
+      "value": "~600",
+      "label": "Reef fish species"
+    }
   ],
-  "image": "/images/setting-beach-club.jpg",
-  "imageAlt": "A quiet corner of the Watamu beach club — two cool drinks on weathered wood."
+  "image": "/images/marine-national-park-setting-coral-reef.jpg",
+  "imageAlt": "Sunlight streaming through clear blue water over a diverse coral reef with schools of tropical fish in Watamu Kenya"
 }
