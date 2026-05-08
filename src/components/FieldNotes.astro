@@ -4,8 +4,15 @@ import { getCollection, getEntry } from 'astro:content';
 const header = await getEntry('sections', 'notes-header');
 const h = header.data;
 
-const all = await getCollection('notes', ({ data }) => data.published);
-const items = all.sort((a, b) => a.data.order - b.data.order);
+// Try to get posts first, fallback to notes for backward compatibility
+const allPosts = await getCollection('posts', ({ data }) => data.published);
+const allNotes = await getCollection('notes', ({ data }) => data.published);
+
+// Use posts if available, otherwise fall back to notes
+const hasPosts = allPosts.length > 0;
+const items = hasPosts 
+  ? allPosts.sort((a, b) => a.data.order - b.data.order).slice(0, 3)
+  : allNotes.sort((a, b) => a.data.order - b.data.order);
 
 // Replace headlineEm phrase with <em>headlineEm</em> in headline
 const headlineParts = h.headline.split(h.headlineEm);
@@ -18,17 +25,40 @@ const headlineParts = h.headline.split(h.headlineEm);
     </div>
 
     <div class="notes-grid">
-      {items.map(({ data: n }) => (
-        <article class="note">
-          <div class="note-img">
-            <img src={n.image} alt={n.imageAlt} />
-          </div>
-          <div class="note-meta">{n.noteNumber}</div>
-          <h3>{n.title} <em>{n.titleEm}</em></h3>
-          <p>{n.excerpt}</p>
-          <a href={n.link}>Read the entry</a>
-        </article>
-      ))}
+      {items.map((item) => {
+        const n = item.data;
+        const isPost = 'metaTitle' in n; // posts have metaTitle, notes don't
+        const href = isPost ? `/notes/${item.slug}` : (n.link || '#');
+        const title = n.title;
+        const titleEm = n.titleEm || '';
+        const excerpt = isPost ? n.excerpt : n.excerpt;
+        const image = n.image;
+        const imageAlt = n.imageAlt;
+        const noteNumber = isPost ? `Field Note · No. ${String(n.order).padStart(2, '0')}` : n.noteNumber;
+        
+        return (
+          <article class="note">
+            <a href={href} class="note-link">
+              <div class="note-img">
+                <img src={image} alt={imageAlt} />
+              </div>
+            </a>
+            <div class="note-meta">{noteNumber}</div>
+            <h3>{title} <em>{titleEm}</em></h3>
+            <p>{excerpt}</p>
+            <a href={href} class="note-read-more">
+              {isPost ? 'Read the full story' : 'Read the entry'}
+              {isPost && <span class="note-read-time">→</span>}
+            </a>
+          </article>
+        );
+      })}
     </div>
+
+    {hasPosts && allPosts.length > 3 && (
+      <div class="notes-archive-link">
+        <a href="/notes" class="btn">View all field notes</a>
+      </div>
+    )}
   </div>
 </section>

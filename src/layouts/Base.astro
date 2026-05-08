@@ -10,11 +10,13 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  canonicalUrl?: string;
 }
 const {
   title = s.seo.title,
   description = s.seo.description,
   ogImage = s.seo.ogImage,
+  canonicalUrl = s.url + '/',
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -26,14 +28,14 @@ const {
 <title>{title}</title>
 <meta name="description" content={description} />
 <meta name="keywords" content={s.seo.keywords} />
-<link rel="canonical" href={s.url + '/'} />
+<link rel="canonical" href={canonicalUrl} />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content={s.siteName} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:url" content={s.url + '/'} />
+<meta property="og:url" content={canonicalUrl} />
 <meta property="og:image" content={ogImage} />
 
 <!-- Twitter -->

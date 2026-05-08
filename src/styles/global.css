@@ -226,6 +226,7 @@ section { padding: clamp(5rem, 10vw, 9rem) 0; position: relative; }
 .notes { background: var(--paper); }
 .notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem 2.5rem; margin-top: 4rem; }
 .note { cursor: pointer; }
+.note-link { display: block; text-decoration: none; }
 .note-img { aspect-ratio: 4/3; overflow: hidden; margin-bottom: 1.5rem; }
 .note-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
 .note:hover .note-img img { transform: scale(1.04); }
@@ -233,7 +234,9 @@ section { padding: clamp(5rem, 10vw, 9rem) 0; position: relative; }
 .note h3 { font-style: italic; font-weight: 400; margin-bottom: 0.85rem; line-height: 1.2; }
 .note h3 em { color: var(--forest); }
 .note p { color: var(--shadow); font-size: 0.95rem; line-height: 1.55; margin-bottom: 1rem; }
-.note a { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--forest); border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.note-read-more { font-family: var(--sans-fn); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--forest); border-bottom: 1px solid currentColor; padding-bottom: 2px; text-decoration: none; }
+.note-read-more:hover { color: var(--moss); }
+.notes-archive-link { text-align: center; margin-top: 3rem; }
 
 /* ============ Family ============ */
 .family { background: var(--leaf); text-align: center; position: relative; overflow: hidden; }

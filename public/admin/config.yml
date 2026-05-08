@@ -347,3 +347,97 @@ collections:
       - { name: imageAlt, label: "Image alt text", widget: string }
       - { name: link, label: "Link (full article URL or #)", widget: string, default: "#" }
       - { name: published, label: "Published", widget: boolean, default: true }
+
+  # ----------------------------------------------------------
+  # 5. BLOG POSTS — SEO-optimized articles (folder collection)
+  # ----------------------------------------------------------
+  - name: "posts"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    description: "SEO-optimized articles with full editorial control. These appear as individual pages and in the Field Notes section."
+    folder: "src/content/posts"
+    create: true
+    delete: true
+    format: "frontmatter"
+    extension: "mdx"
+    slug: "{{slug}}"
+    summary: "{{order}} · {{title}} {{titleEm}} — {{category}}"
+    sortable_fields: ["order", "publishDate", "title"]
+    view_filters:
+      - label: "Featured"
+        field: featured
+        pattern: true
+      - label: "Published"
+        field: published
+        pattern: true
+      - label: "Drafts"
+        field: published
+        pattern: false
+    fields:
+      - { name: order, label: "Display order (homepage)", widget: number, value_type: int, default: 1, hint: "Lower numbers appear first in the Field Notes section" }
+      - { name: published, label: "Published", widget: boolean, default: false, hint: "Set to true when ready to go live" }
+      - { name: publishDate, label: "Publish date", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: updatedDate, label: "Last updated", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
+      
+      # SEO Fields
+      - name: metaTitle
+        label: "SEO Title (meta title)"
+        widget: string
+        hint: "Max 60 characters. Appears in search results and browser tab."
+      - name: metaDescription
+        label: "SEO Description (meta description)"
+        widget: text
+        hint: "Max 160 characters. Appears in search results under the title."
+      - name: keywords
+        label: "Keywords"
+        widget: string
+        required: false
+        hint: "Comma-separated keywords for meta tags"
+      - name: canonicalUrl
+        label: "Canonical URL"
+        widget: string
+        required: false
+        hint: "Full URL if this content is republished from elsewhere"
+      - name: ogImage
+        label: "Social Share Image (OG Image)"
+        widget: image
+        required: false
+        hint: "1200x630px recommended. Falls back to hero image if not set."
+      
+      # Content
+      - { name: title, label: "Title (first part)", widget: string }
+      - { name: titleEm, label: "Title (italicised part)", widget: string, required: false }
+      - { name: subtitle, label: "Subtitle", widget: string, required: false }
+      - { name: excerpt, label: "Excerpt / Summary", widget: text, hint: "Shown in cards and search results. 1-2 sentences." }
+      - { name: author, label: "Author", widget: string, default: "Exploreans Team" }
+      - { name: category, label: "Category", widget: string, default: "Field Notes" }
+      - name: tags
+        label: "Tags"
+        widget: list
+        required: false
+        field: { name: tag, label: "Tag", widget: string }
+        hint: "Add relevant tags for filtering and SEO"
+      - { name: featured, label: "Featured post", widget: boolean, default: false, hint: "Featured posts appear first and get special styling" }
+      
+      # Hero Image
+      - { name: image, label: "Hero Image", widget: image }
+      - { name: imageAlt, label: "Hero image alt text (SEO)", widget: string, hint: "Descriptive alt text for accessibility and SEO" }
+      - { name: imageCaption, label: "Image caption", widget: string, required: false }
+      
+      # Article Body (Markdown)
+      - name: body
+        label: "Article Content"
+        widget: markdown
+        hint: "Write the full article content using Markdown. Use ## for headings, > for quotes, and standard formatting."
+      
+      # Related Content
+      - name: relatedPosts
+        label: "Related Posts"
+        widget: list
+        required: false
+        field: { name: slug, label: "Post slug", widget: string, hint: "The filename slug of a related post" }
+      - name: relatedExcursions
+        label: "Related Excursions"
+        widget: list
+        required: false
+        field: { name: slug, label: "Excursion slug", widget: string, hint: "The filename slug of a related excursion" }

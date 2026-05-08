@@ -1,0 +1,323 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+const posts = await getCollection('posts', ({ data }) => data.published);
+const sortedPosts = posts.sort((a, b) => {
+  // Sort by featured first, then by order, then by date
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return a.data.order - b.data.order || new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime();
+});
+
+// Get site settings
+const siteEntry = await getEntry('site', 'settings');
+const site = siteEntry?.data;
+
+// SEO
+const pageTitle = `Field Notes | ${site?.siteName || 'Exploreans Watamu'}`;
+const pageDescription = `Discover the stories, guides, and hidden gems of Watamu and the Kenyan coast. Editorial dispatches from the field by Exploreans.`;
+
+// JSON-LD for collection page
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  headline: 'Field Notes',
+  description: pageDescription,
+  url: `${site?.url || ''}/notes`,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: sortedPosts.map((post, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `${site?.url || ''}/notes/${post.slug}`,
+      name: post.data.title + (post.data.titleEm ? ` ${post.data.titleEm}` : '')
+    }))
+  }
+};
+---
+
+<Base 
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={sortedPosts[0]?.data.image}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <section class="notes-archive">
+    <div class="container">
+      {/* Header */}
+      <header class="archive-header">
+        <nav class="archive-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span>/</span>
+          <span aria-current="page">Field Notes</span>
+        </nav>
+        <h1>Field Notes</h1>
+        <p class="archive-lede">Stories, guides, and dispatches from the Kenyan coast.</p>
+      </header>
+
+      {/* Posts Grid */}
+      <div class="archive-grid">
+        {sortedPosts.map((post, index) => (
+          <article class={`archive-card${post.data.featured ? ' featured' : ''}${index === 0 ? ' first' : ''}`}>
+            <a href={`/notes/${post.slug}`} class="archive-card-link">
+              <div class="archive-card-image">
+                <img 
+                  src={post.data.image} 
+                  alt={post.data.imageAlt}
+                  loading={index < 3 ? 'eager' : 'lazy'}
+                />
+                {post.data.featured && <span class="featured-badge">Featured</span>}
+              </div>
+              <div class="archive-card-body">
+                <div class="archive-card-meta">
+                  <span class="archive-card-category">{post.data.category}</span>
+                  <time datetime={post.data.publishDate}>
+                    {new Date(post.data.publishDate).toLocaleDateString('en-GB', { 
+                      day: 'numeric', 
+                      month: 'short', 
+                      year: 'numeric' 
+                    })}
+                  </time>
+                </div>
+                <h2>
+                  {post.data.title}{post.data.titleEm && <em> {post.data.titleEm}</em>}
+                </h2>
+                <p>{post.data.excerpt}</p>
+                <span class="read-more">Read the entry →</span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      {/* Empty State */}
+      {sortedPosts.length === 0 && (
+        <div class="archive-empty">
+          <p>No field notes published yet. Check back soon.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notes-archive {
+    padding: 4rem 0 6rem;
+    background: var(--paper);
+    min-height: 60vh;
+  }
+
+  .archive-header {
+    margin-bottom: 4rem;
+    max-width: 680px;
+  }
+
+  .archive-breadcrumb {
+    font-family: var(--sans-fn);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    color: var(--sage);
+  }
+
+  .archive-breadcrumb a {
+    color: var(--forest);
+  }
+
+  .archive-breadcrumb a:hover {
+    color: var(--moss);
+  }
+
+  .archive-breadcrumb span {
+    margin: 0 0.5rem;
+  }
+
+  .archive-header h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    color: var(--moss);
+  }
+
+  .archive-lede {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--shadow);
+    max-width: 50ch;
+  }
+
+  /* Grid Layout */
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  /* First card spans full width */
+  .archive-card.first {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    background: var(--paper-warm);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .archive-card.first .archive-card-link {
+    display: contents;
+  }
+
+  .archive-card.first .archive-card-image {
+    height: 100%;
+    min-height: 400px;
+  }
+
+  .archive-card.first .archive-card-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .archive-card.first .archive-card-body {
+    padding: 3rem;
+  }
+
+  .archive-card.first h2 {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+  }
+
+  /* Standard cards */
+  .archive-card:not(.first) .archive-card-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .archive-card:not(.first) .archive-card-image {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+
+  .archive-card:not(.first) .archive-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .archive-card:not(.first):hover .archive-card-image img {
+    transform: scale(1.03);
+  }
+
+  .archive-card-image {
+    position: relative;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--forest);
+    color: var(--paper);
+    font-family: var(--sans-fn);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 0.9rem;
+  }
+
+  .archive-card-body {
+    color: var(--moss);
+  }
+
+  .archive-card-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-family: var(--sans-fn);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .archive-card-category {
+    color: var(--forest);
+    font-weight: 500;
+  }
+
+  .archive-card-meta time {
+    color: var(--sage);
+  }
+
+  .archive-card h2 {
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    color: var(--moss);
+  }
+
+  .archive-card h2 em {
+    color: var(--forest);
+  }
+
+  .archive-card p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--shadow);
+    margin-bottom: 1rem;
+  }
+
+  .read-more {
+    font-family: var(--sans-fn);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .archive-card:hover .read-more {
+    color: var(--moss);
+  }
+
+  /* Empty state */
+  .archive-empty {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--sage);
+    font-style: italic;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .archive-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .archive-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .archive-card.first {
+      grid-template-columns: 1fr;
+    }
+
+    .archive-card.first .archive-card-image {
+      min-height: 250px;
+    }
+
+    .archive-card.first .archive-card-body {
+      padding: 1.5rem;
+    }
+  }
+</style>

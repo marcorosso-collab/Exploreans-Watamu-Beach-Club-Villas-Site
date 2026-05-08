@@ -234,4 +234,39 @@ const notes = defineCollection({
   })
 });
 
-export const collections = { site, sections, excursions, notes };
+// ============================================================
+// BLOG POSTS — SEO-optimized articles with full CMS control
+// ============================================================
+const posts = defineCollection({
+  type: 'content',
+  schema: z.object({
+    order: z.number().default(1),
+    published: z.boolean().default(true),
+    publishDate: z.string(),
+    updatedDate: z.string().optional(),
+    // SEO fields
+    metaTitle: z.string(),
+    metaDescription: z.string(),
+    keywords: z.string().optional(),
+    canonicalUrl: z.string().optional(),
+    ogImage: z.string().optional(),
+    // Content
+    title: z.string(),
+    titleEm: z.string().optional(),
+    subtitle: z.string().optional(),
+    excerpt: z.string(),
+    author: z.string().default('Exploreans Team'),
+    category: z.string().default('Field Notes'),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    // Hero image
+    image: z.string(),
+    imageAlt: z.string(),
+    imageCaption: z.string().optional(),
+    // Related content
+    relatedExcursions: z.array(z.string()).default([]),
+    relatedPosts: z.array(z.string()).default([])
+  })
+});
+
+export const collections = { site, sections, excursions, notes, posts };

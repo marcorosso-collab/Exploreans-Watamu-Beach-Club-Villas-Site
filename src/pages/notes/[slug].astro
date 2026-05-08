@@ -1,0 +1,542 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => data.published);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const p = post.data;
+const { Content } = await post.render();
+
+// Get site settings for structured data
+const siteEntry = await getEntry('site', 'settings');
+const site = siteEntry?.data;
+
+// Get related posts
+const relatedPosts = [];
+for (const relatedSlug of p.relatedPosts || []) {
+  try {
+    const related = await getEntry('posts', relatedSlug);
+    if (related && related.data.published) {
+      relatedPosts.push(related);
+    }
+  } catch (e) { /* ignore missing */ }
+}
+
+// Build title with brand
+const pageTitle = p.metaTitle || `${p.title}${p.titleEm ? ` ${p.titleEm}` : ''} | ${site?.siteName || 'Exploreans'}`;
+
+// JSON-LD structured data
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: p.title + (p.titleEm ? ` ${p.titleEm}` : ''),
+  description: p.metaDescription,
+  image: p.ogImage || p.image,
+  datePublished: p.publishDate,
+  dateModified: p.updatedDate || p.publishDate,
+  author: {
+    '@type': 'Organization',
+    name: p.author
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: site?.siteName || 'Exploreans',
+    logo: {
+      '@type': 'ImageObject',
+      url: site?.url ? `${site.url}/images/logo.png` : undefined
+    }
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': p.canonicalUrl || `${site?.url || ''}/notes/${post.slug}`
+  },
+  keywords: p.keywords || p.tags?.join(', ')
+};
+
+// Format date
+const formatDate = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+---
+
+<Base 
+  title={pageTitle}
+  description={p.metaDescription}
+  ogImage={p.ogImage || p.image}
+  canonicalUrl={p.canonicalUrl}
+>
+  {/* JSON-LD Structured Data */}
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  {/* Breadcrumb structured data */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": site?.url || "/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Field Notes",
+          "item": `${site?.url || ''}/notes`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": p.title + (p.titleEm ? ` ${p.titleEm}` : ''),
+          "item": p.canonicalUrl || `${site?.url || ''}/notes/${post.slug}`
+        }
+      ]
+    })}
+  </script>
+
+  {/* Article Header */}
+  <article class="post-article">
+    {/* Hero */}
+    <header class="post-hero">
+      <div class="post-hero-image">
+        <img src={p.image} alt={p.imageAlt} />
+        {p.imageCaption && <figcaption>{p.imageCaption}</figcaption>}
+      </div>
+      <div class="post-hero-content">
+        <div class="container">
+          <nav class="post-breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span>/</span>
+            <a href="/notes">Field Notes</a>
+            <span>/</span>
+            <span aria-current="page">{p.title}{p.titleEm && ` ${p.titleEm}`}</span>
+          </nav>
+          
+          <div class="post-meta">
+            <span class="post-category">{p.category}</span>
+            <time datetime={p.publishDate}>{formatDate(p.publishDate)}</time>
+            {p.updatedDate && p.updatedDate !== p.publishDate && (
+              <span class="post-updated">Updated {formatDate(p.updatedDate)}</span>
+            )}
+          </div>
+          
+          <h1 class="post-title">
+            {p.title}{p.titleEm && <em> {p.titleEm}</em>}
+          </h1>
+          
+          {p.subtitle && <p class="post-subtitle">{p.subtitle}</p>}
+          
+          <p class="post-excerpt">{p.excerpt}</p>
+          
+          {p.tags && p.tags.length > 0 && (
+            <div class="post-tags">
+              {p.tags.map(tag => (
+                <span class="post-tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+
+    {/* Article Body */}
+    <div class="post-body">
+      <div class="container">
+        <div class="post-content">
+          {/* Render MDX content */}
+          <Content />
+        </div>
+
+        {/* Author / Footer */}
+        <footer class="post-footer">
+          <div class="post-author">
+            <span>By {p.author}</span>
+          </div>
+          
+          {/* Share buttons */}
+          <div class="post-share">
+            <span>Share:</span>
+            <a 
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(p.title)}&url=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Twitter"
+            >
+              Twitter
+            </a>
+            <a 
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on Facebook"
+            >
+              Facebook
+            </a>
+            <a 
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(p.canonicalUrl || `${site?.url}/notes/${post.slug}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Share on LinkedIn"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </footer>
+
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <aside class="post-related" aria-label="Related articles">
+            <h2>Related Field Notes</h2>
+            <div class="related-grid">
+              {relatedPosts.map(related => (
+                <a href={`/notes/${related.slug}`} class="related-card">
+                  <img src={related.data.image} alt={related.data.imageAlt} loading="lazy" />
+                  <h3>{related.data.title}{related.data.titleEm && <em> {related.data.titleEm}</em>}</h3>
+                  <p>{related.data.excerpt}</p>
+                </a>
+              ))}
+            </div>
+          </aside>
+        )}
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  /* Post Article Layout */
+  .post-article {
+    --post-max-width: 780px;
+  }
+
+  /* Hero */
+  .post-hero {
+    position: relative;
+    background: var(--moss);
+    color: var(--paper);
+  }
+
+  .post-hero-image {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 400px;
+    max-height: 700px;
+    overflow: hidden;
+  }
+
+  .post-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+
+  .post-hero-image figcaption {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    font-size: 0.75rem;
+    font-style: italic;
+    opacity: 0.7;
+    color: var(--paper);
+  }
+
+  .post-hero-content {
+    padding: 3rem 0 4rem;
+  }
+
+  .post-hero-content .container {
+    max-width: var(--post-max-width);
+  }
+
+  /* Breadcrumb */
+  .post-breadcrumb {
+    font-family: var(--sans-fn);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    opacity: 0.7;
+  }
+
+  .post-breadcrumb a {
+    color: var(--ochre);
+  }
+
+  .post-breadcrumb a:hover {
+    color: var(--paper);
+  }
+
+  .post-breadcrumb span {
+    margin: 0 0.5rem;
+  }
+
+  /* Meta */
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-family: var(--sans-fn);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .post-category {
+    color: var(--ochre);
+    font-weight: 500;
+  }
+
+  .post-updated {
+    opacity: 0.7;
+  }
+
+  /* Title */
+  .post-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    color: var(--paper);
+    margin-bottom: 1rem;
+  }
+
+  .post-title em {
+    color: var(--ochre);
+  }
+
+  .post-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-style: italic;
+    color: var(--ochre);
+    margin-bottom: 1.5rem;
+    max-width: 60ch;
+  }
+
+  .post-excerpt {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 60ch;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Tags */
+  .post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .post-tag {
+    font-family: var(--sans-fn);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid rgba(250, 250, 245, 0.3);
+    color: var(--paper);
+    opacity: 0.8;
+  }
+
+  /* Body */
+  .post-body {
+    padding: 4rem 0 6rem;
+    background: var(--paper);
+  }
+
+  .post-body .container {
+    max-width: var(--post-max-width);
+  }
+
+  .post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .post-content h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin: 3rem 0 1.5rem;
+    color: var(--moss);
+  }
+
+  .post-content h2:first-child {
+    margin-top: 0;
+  }
+
+  .post-content p {
+    margin-bottom: 1.5rem;
+    color: var(--shadow);
+  }
+
+  .post-content blockquote {
+    margin: 2.5rem 0;
+    padding: 1.5rem 2rem;
+    border-left: 3px solid var(--forest);
+    background: var(--leaf);
+    font-style: italic;
+  }
+
+  .post-content blockquote p {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: var(--moss);
+  }
+
+  .post-content blockquote cite {
+    font-family: var(--sans-fn);
+    font-size: 0.8rem;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--sage);
+  }
+
+  .post-content ul {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .post-content li {
+    margin-bottom: 0.5rem;
+    color: var(--shadow);
+  }
+
+  .post-figure {
+    margin: 2.5rem 0;
+  }
+
+  .post-figure img {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .post-figure figcaption {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--sage);
+    margin-top: 0.5rem;
+  }
+
+  /* Footer */
+  .post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .post-author {
+    font-family: var(--sans-fn);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--sage);
+  }
+
+  .post-share {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-family: var(--sans-fn);
+    font-size: 0.75rem;
+  }
+
+  .post-share a {
+    color: var(--forest);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-share a:hover {
+    color: var(--moss);
+  }
+
+  /* Related Posts */
+  .post-related {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .post-related h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--moss);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .related-card {
+    display: block;
+    text-decoration: none;
+  }
+
+  .related-card img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .related-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--moss);
+  }
+
+  .related-card h3 em {
+    color: var(--forest);
+  }
+
+  .related-card p {
+    font-size: 0.95rem;
+    color: var(--shadow);
+    line-height: 1.5;
+  }
+
+  .related-card:hover h3 {
+    color: var(--forest);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .post-hero-image {
+      height: 40vh;
+      min-height: 250px;
+    }
+
+    .post-hero-content {
+      padding: 2rem 0 3rem;
+    }
+
+    .post-body {
+      padding: 2.5rem 0 4rem;
+    }
+
+    .post-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
