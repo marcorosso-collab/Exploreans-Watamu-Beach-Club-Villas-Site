@@ -160,12 +160,6 @@ const formatDate = (dateStr: string) => {
             <Content />
           </div>
 
-          {/* Author / Footer */}
-          <footer class="post-footer">
-            <div class="post-author">
-              <span>By {p.author}</span>
-            </div>
-          </footer>
         </div>
 
         {/* Related Posts — Full width below */}
@@ -187,6 +181,23 @@ const formatDate = (dateStr: string) => {
     </div>
   </article>
 
+  {/* Site Footer */}
+  <footer class="post-site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-logo">Exploreans</span>
+          <span class="footer-tagline">Watamu Beach Club & Villas</span>
+        </div>
+        <nav class="footer-nav">
+          <a href="/">Home</a>
+          <a href="/notes">Field Notes</a>
+          <a href={s?.booking?.url || '#'} target="_blank" rel="noopener">Book Now</a>
+        </nav>
+        <p class="footer-credit">A Planhotel Hospitality Group property</p>
+      </div>
+    </div>
+  </footer>
 </Base>
 
 <style>
@@ -499,11 +510,15 @@ const formatDate = (dateStr: string) => {
     text-align: center;
   }
 
-  /* Footer */
-  .post-footer {
-    margin-top: 5rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--rule);
+  /* Site Footer */
+  .post-site-footer {
+    background: var(--moss);
+    color: var(--paper);
+    padding: 3rem 0;
+    margin-top: 0;
+  }
+
+  .footer-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -511,12 +526,50 @@ const formatDate = (dateStr: string) => {
     gap: 1.5rem;
   }
 
-  .post-author {
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .footer-logo {
+    font-family: var(--serif-display);
+    font-size: 1.3rem;
+    color: var(--paper);
+  }
+
+  .footer-tagline {
     font-family: var(--sans-fn);
-    font-size: 0.85rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.7;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-nav a {
+    font-family: var(--sans-fn);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ochre);
+    transition: color 0.2s;
+  }
+
+  .footer-nav a:hover {
+    color: var(--paper);
+  }
+
+  .footer-credit {
+    font-family: var(--sans-fn);
+    font-size: 0.7rem;
+    opacity: 0.5;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--sage);
   }
 
   /* Related Posts — Full width below content */
@@ -621,14 +674,17 @@ const formatDate = (dateStr: string) => {
       font-size: 3.5rem;
     }
 
-    .post-footer {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
     .related-grid {
       grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-nav {
+      gap: 1.5rem;
     }
   }
 </style>
