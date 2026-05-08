@@ -13,12 +13,24 @@
         "An open-sided restaurant in the heart of the property. À la carte at every service — Italian classics alongside East African and international plates, built around the morning's fish, local produce, and a short list of dishes that change with the catch.",
         "Breakfast under the trees. Lunch on the long table. Dinner by lantern, with the sound of the bush a few metres away."
       ],
-      "image": "/images/dining-main.jpg",
-      "imageAlt": "The main restaurant pavilion at Watamu — open-sided dining under the trees, lantern-lit at dusk.",
+      "image": "/images/watamu-main-restaurant-breakfast-dining.jpg",
+      "imageAlt": "Breakfast at Exploreans Watamu's main restaurant — dining by the pool.",
       "meta": [
-        { "label": "Service", "value": "Breakfast · Lunch · Dinner" },
-        { "label": "Style", "value": "À la carte" },
-        { "label": "Reservations", "value": "+254 799 388 781", "link": "tel:+254799388781" }
+        {
+          "label": "Service",
+          "value": "Breakfast · Lunch · Dinner",
+          "link": ""
+        },
+        {
+          "label": "Style",
+          "value": "À la carte",
+          "link": ""
+        },
+        {
+          "label": "Reservations",
+          "value": "+254 799 388 781",
+          "link": "tel:+254799388781"
+        }
       ]
     },
     {
@@ -29,12 +41,24 @@
         "A second restaurant directly on the private beach club, set under a makuti gazebo with a clear view of the reef. Lighter than the main pavilion — grilled catch of the day, ceviche, fresh tropical fruit, and cold drinks that arrive without fuss.",
         "The kind of lunch you stretch into the afternoon, then into a swim, then back to the table for one more thing."
       ],
-      "image": "/images/dining-beach.jpg",
-      "imageAlt": "The beach restaurant at Watamu — a thatched gazebo set on the sand of Mayungu Bay.",
+      "image": "/images/beach-restaurant-seafood-dining-mayungu.jpg",
+      "imageAlt": "The beach restaurant at Exploreans Watamu — a thatched gazebo set on the sand of Mayungu Bay.",
       "meta": [
-        { "label": "Service", "value": "Lunch · Light dinner" },
-        { "label": "Style", "value": "À la carte · Beachside" },
-        { "label": "Setting", "value": "On the private beach" }
+        {
+          "label": "Service",
+          "value": "Lunch · Light dinner",
+          "link": ""
+        },
+        {
+          "label": "Style",
+          "value": "À la carte · Beachside",
+          "link": ""
+        },
+        {
+          "label": "Setting",
+          "value": "On the private beach",
+          "link": ""
+        }
       ]
     }
   ]
