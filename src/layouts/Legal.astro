@@ -1,0 +1,98 @@
+---
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+---
+<Base title={title} description={description} canonicalUrl={Astro.url.href}>
+  <Nav />
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-header">
+        <a href="/" class="legal-back">← Back to home</a>
+        <h1>{title}</h1>
+      </div>
+      <div class="legal-body">
+        <slot />
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .legal-page {
+    padding: 10rem 0 6rem;
+    background: var(--paper);
+    min-height: 60vh;
+  }
+  .legal-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .legal-back {
+    font-family: var(--sans-fn);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+  .legal-back:hover { color: var(--forest); }
+  .legal-header h1 {
+    font-family: var(--serif-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--moss);
+  }
+  .legal-body {
+    max-width: 72ch;
+  }
+  .legal-body h2 {
+    font-family: var(--serif-display);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 2.5rem 0 1rem;
+    color: var(--moss);
+  }
+  .legal-body h3 {
+    font-family: var(--sans-fn);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage);
+    margin: 2rem 0 0.75rem;
+    font-weight: 500;
+  }
+  .legal-body p {
+    margin-bottom: 1.25rem;
+    color: var(--shadow);
+    line-height: 1.7;
+  }
+  .legal-body ul {
+    margin: 1rem 0 1.5rem 1.5rem;
+    color: var(--shadow);
+  }
+  .legal-body ul li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+  .legal-body a {
+    color: var(--forest);
+    border-bottom: 1px solid var(--rule);
+  }
+  .legal-body a:hover {
+    border-color: var(--forest);
+  }
+  .legal-body strong {
+    color: var(--moss);
+    font-weight: 500;
+  }
+</style>

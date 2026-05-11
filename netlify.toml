@@ -27,6 +27,27 @@
     X-Frame-Options = "SAMEORIGIN"
     Cache-Control = "no-cache, no-store, must-revalidate"
 
+# Explicit page routes — must come BEFORE the catch-all fallback
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/cookies"
+  to = "/cookies/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap"
+  to = "/sitemap/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/notes/*"
+  to = "/notes/:splat/index.html"
+  status = 200
+
 # Pretty URL fallback for Astro (SPA mode)
 # This MUST come AFTER specific file rules
 [[redirects]]
